@@ -7,13 +7,8 @@ class Landing extends React.Component {
     return (
         <Grid verticalAlign='middle' textAlign='center' container>
 
-          <Grid.Column width={4}>
-            <Image size='small' circular src="/images/meteor-logo.png"/>
-          </Grid.Column>
-
           <Grid.Column width={8}>
-            <h1>Welcome to this template</h1>
-            <p>Now get to work and modify this app!</p>
+            <h1>Welcome to the Period Tracker</h1>
           </Grid.Column>
 
         </Grid>
