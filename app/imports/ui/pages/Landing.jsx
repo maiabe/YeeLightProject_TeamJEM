@@ -1,5 +1,6 @@
 import React from 'react';
 import { Grid, Button } from 'semantic-ui-react';
+import { withRouter, NavLink } from 'react-router-dom';
 import './style.css';
 
 /** A simple static component to render some text for the landing page. */
@@ -16,7 +17,8 @@ class Landing extends React.Component {
           <Grid.Column id='guided_tour' width={8}>
             <p>WWAT is a period tracker to help assure healthy lifestyle for women.</p>
             <p>Sign up to get started and be free of stress today !</p>
-            <Button size='big' color='red'>Guided Tour</Button>
+            <Button size='big' color='red' as={NavLink} activeClassName="active" exact to="/GuidedTour">
+              Guided Tour</Button>
           </Grid.Column>
         </Grid>
     );
