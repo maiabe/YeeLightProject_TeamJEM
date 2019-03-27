@@ -1,0 +1,17 @@
+
+body {
+  background-image: linear-gradient(white, white, white, lightpink);
+}
+
+#title {
+  padding-top: 200px;
+  padding-left: 180px;
+  padding-bottom: 300px;
+}
+
+#guided_tour {
+  padding-top: 260px;
+  padding-left: 70px;
+  padding-right: 100px;
+  padding-bottom: 300px;
+}
