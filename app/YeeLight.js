@@ -20,7 +20,7 @@ discover.on("deviceAdded", (device) => {
       // Yellow
       light.setCtAbx(2700, "smooth", 5000);
     }, 5000);
-    setTimeout(() =>
+    setTimeout(() => {
         // Dim
       light.setBright(1, "smooth", 5000);
     }, 10000);
