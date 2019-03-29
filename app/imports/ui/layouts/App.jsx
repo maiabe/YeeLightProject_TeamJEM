@@ -10,6 +10,7 @@ import Landing from '../pages/Landing';
 import ListStuff from '../pages/ListStuff';
 import ListStuffAdmin from '../pages/ListStuffAdmin';
 import InputData from '../pages/InputData';
+import Profile from '../pages/Profile';
 import EditStuff from '../pages/EditStuff';
 import NotFound from '../pages/NotFound';
 import Signin from '../pages/Signin';
@@ -31,6 +32,7 @@ class App extends React.Component {
               <Route path="/guidedtour" component={GuidedTour}/>
               <ProtectedRoute path="/list" component={ListStuff}/>
               <ProtectedRoute path="/input" component={InputData}/>
+              <ProtectedRoute path="/profile" component={Profile}/>
               <ProtectedRoute path="/edit/:_id" component={EditStuff}/>
               <AdminProtectedRoute path="/admin" component={ListStuffAdmin}/>
               <ProtectedRoute path="/signout" component={Signout}/>

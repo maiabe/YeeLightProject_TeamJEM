@@ -5,6 +5,6 @@
   ],
 
   "defaultProfile": [
-    { "birthday": "unknown", "cycle": 0, "duration": 0, "owner": "john@foo.com"}
+    { "birthday": null, "cycle": 0, "duration": 0, "owner": "john@foo.com"}
   ]
 }
