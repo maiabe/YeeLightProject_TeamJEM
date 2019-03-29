@@ -5,6 +5,7 @@ import { Profiles } from '/imports/api/profile/profile';
 import ProfileComp from '/imports/ui/components/ProfileComp';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 /** Renders a table containing all of the Stuff documents. Use <StuffItem> to render each row. */
 class Profile extends React.Component {

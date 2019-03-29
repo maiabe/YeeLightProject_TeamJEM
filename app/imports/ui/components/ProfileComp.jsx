@@ -9,10 +9,11 @@ class ProfileComp extends React.Component {
     return (
         <Container>
           <Segment>
-            Birthday: {this.props.profile.birthday.toString()}<br/>
-            Average cycle duration: {this.props.profile.cycle} days<br/>
+            Birthday: {this.props.profile.birthday.toString()}<br/><br/>
+            Average cycle duration: {this.props.profile.cycle} days<br/><br/>
             Average period duration: {this.props.profile.duration} days<br/>
           </Segment>
+          <Link to={`/edit/${this.props.profile._id}`}>Edit</Link>
         </Container>
     );
   }
