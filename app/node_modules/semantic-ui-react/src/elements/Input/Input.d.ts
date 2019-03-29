@@ -65,7 +65,7 @@ export interface StrictInputProps {
   onChange?: (event: React.ChangeEvent<HTMLInputElement>, data: InputOnChangeData) => void
 
   /** An Input can vary in size. */
-  size?: SemanticSIZES
+  size?: 'mini' | 'small' | 'large' | 'big' | 'huge' | 'massive'
 
   /** An Input can receive focus. */
   tabIndex?: number | string
@@ -83,6 +83,7 @@ export interface InputOnChangeData extends InputProps {
 
 declare class Input extends React.Component<InputProps, {}> {
   focus: () => void
+  select: () => void
 }
 
 export default Input

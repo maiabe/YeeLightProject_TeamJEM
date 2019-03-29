@@ -11,19 +11,23 @@ import {
   DatesRangeInput
 } from 'semantic-ui-calendar-react';
 import PropTypes from 'prop-types';
-import { Calendar } from 'antd'
+import moment from 'moment';
 import './style.css'
-import 'antd/dist/antd.css'
 
 
 /** Renders a table containing all of the Stuff documents. Use <StuffItem> to render each row. */
 class UserHome extends React.Component {
 
-  state = {
-    date: new Date(),
-    dates: new Array()
-  };
+  constructor(props) {
+    super(props);
 
+    this.handleChange = this.handleChange.bind(this);
+
+    this.state = {
+      date: '',
+      dates: [],
+    };
+  }
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   render() {
@@ -40,11 +44,9 @@ class UserHome extends React.Component {
                 id='datesInput'
                 inline
                 name='date'
-                // value={this.state.date}
+                value={this.state.date}
                 onChange={this.handleChange}
                 markColor={'red'}
-                marked={this.state.date}
-                maxDate={31}
             />
           </Form>
         </Container>
