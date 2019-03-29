@@ -1,5 +1,3 @@
-import { Profiles } from '/imports/api/profile/profile';
-
 const yeelight = require("yeelight-awesome");
 const discover = new yeelight.Discover({
   port: 1982,

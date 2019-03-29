@@ -74,7 +74,8 @@ class UserHome extends React.Component {
     var i;
     var duration = (this.props.profile == null) ? 7 : this.props.profile.duration; // default duration = 7;
     for (i = 0; i < duration; i++) {
-      this.state.dates.push(value);
+      // this.state.dates.push(value);
+      this.state.dates.push(moment(value)); // all dates in array are Moment objects
       // value = value.getDate() + 1;
       value = moment(value, "YYYY-MM-DD").add(1,'days');
     }
@@ -86,8 +87,12 @@ class UserHome extends React.Component {
       this.setState({ [name]: value });
       this.addDays(value);
     }
-  };
 
+    var today = moment().format().split('T')[0];
+    if (this.state.dates.find(date => date.format().split('T')[0] === today)) {
+      console.log('Change bulb to orange'); // light.setCtAbx(1700, "smooth", 5000);
+    }
+  };
 }
 
 
