@@ -1,8 +1,7 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Container, Table, Header, Loader, Form, Icon } from 'semantic-ui-react';
-import { Stuffs } from '/imports/api/stuff/stuff';
-import StuffItem from '/imports/ui/components/StuffItem';
+import { Profiles } from '/imports/api/profile/profile';
 import { withTracker } from 'meteor/react-meteor-data';
 import {
   DateInput,
@@ -73,8 +72,8 @@ class UserHome extends React.Component {
 
   addDays = value => {
     var i;
-    // replace '7' with the period duration of the user input
-    for (i = 0; i < 7; i++) {
+    var duration = (this.props.profile == null) ? 7 : this.props.profile.duration; // default duration = 7;
+    for (i = 0; i < duration; i++) {
       this.state.dates.push(value);
       // value = value.getDate() + 1;
       value = moment(value, "YYYY-MM-DD").add(1,'days');
@@ -94,16 +93,15 @@ class UserHome extends React.Component {
 
 /** Require an array of Stuff documents in the props. */
 UserHome.propTypes = {
-  stuffs: PropTypes.array.isRequired,
   ready: PropTypes.bool.isRequired,
 };
 
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 export default withTracker(() => {
   // Get access to Stuff documents.
-  const subscription = Meteor.subscribe('Stuff');
+  const subscription = Meteor.subscribe('Profile');
   return {
-    stuffs: Stuffs.find({}).fetch(),
+    profile: Profiles.findOne({}),
     ready: subscription.ready(),
   };
 })(UserHome);

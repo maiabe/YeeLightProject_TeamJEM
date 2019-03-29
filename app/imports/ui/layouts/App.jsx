@@ -7,18 +7,11 @@ import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import Landing from '../pages/Landing';
-<<<<<<< HEAD
 import UserHome from '../pages/UserHome';
 import UserHomeAdmin from '../pages/UserHomeAdmin';
-import AddStuff from '../pages/AddStuff';
-import EditStuff from '../pages/EditStuff';
-=======
-import ListStuff from '../pages/ListStuff';
-import ListStuffAdmin from '../pages/ListStuffAdmin';
 import InputData from '../pages/InputData';
 import Profile from '../pages/Profile';
 import EditProfile from '../pages/EditProfile';
->>>>>>> about-page
 import NotFound from '../pages/NotFound';
 import Signin from '../pages/Signin';
 import Signup from '../pages/Signup';
@@ -37,18 +30,11 @@ class App extends React.Component {
               <Route path="/signin" component={Signin}/>
               <Route path="/signup" component={Signup}/>
               <Route path="/guidedtour" component={GuidedTour}/>
-<<<<<<< HEAD
               <ProtectedRoute path="/userhome" component={UserHome}/>
-              <ProtectedRoute path="/add" component={AddStuff}/>
-              <ProtectedRoute path="/edit/:_id" component={EditStuff}/>
               <AdminProtectedRoute path="/admin" component={UserHomeAdmin}/>
-=======
-              <ProtectedRoute path="/list" component={ListStuff}/>
               <ProtectedRoute path="/input" component={InputData}/>
               <ProtectedRoute path="/profile" component={Profile}/>
               <ProtectedRoute path="/edit/:_id" component={EditProfile}/>
-              <AdminProtectedRoute path="/admin" component={ListStuffAdmin}/>
->>>>>>> about-page
               <ProtectedRoute path="/signout" component={Signout}/>
               <Route component={NotFound}/>
             </Switch>
