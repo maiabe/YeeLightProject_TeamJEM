@@ -1,5 +1,5 @@
 *.iml
 .idea
 .DS_Store
-app/node_modules
+node_modules
 settings.production.json
