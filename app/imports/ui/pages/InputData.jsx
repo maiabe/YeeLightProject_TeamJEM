@@ -34,9 +34,9 @@ class InputData extends React.Component {
 
   /** On submit, insert the data. */
   submit(data) {
-    const { birthday, cycle, duration } = data;
+    const { birthday, last_period, cycle, duration } = data;
     const owner = Meteor.user().username;
-    Profiles.insert({ birthday, cycle, duration, owner }, this.insertCallback);
+    Profiles.insert({ birthday, last_period, cycle, duration, owner }, this.insertCallback);
   }
 
   /** Render the form. Use Uniforms: https://github.com/vazco/uniforms */
@@ -48,6 +48,7 @@ class InputData extends React.Component {
             <AutoForm ref={(ref) => {this.formRef = ref;}} schema={ProfileSchema} onSubmit={this.submit}>
               <Segment>
                 <DateField name='birthday' label='Birthday'/>
+                <DateField name='last_period' label='Last Period'/>
                 <NumField name='cycle' label='Average cycle duration' decimal={false}/>
                 <NumField name='duration' label='Average period duration' decimal={false}/>
                 <SubmitField value='Submit'/>

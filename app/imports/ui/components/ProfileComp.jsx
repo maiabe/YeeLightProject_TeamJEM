@@ -10,6 +10,7 @@ class ProfileComp extends React.Component {
         <Container>
           <Segment>
             Birthday: {this.props.profile.birthday.toString()}<br/><br/>
+            Last period: {this.props.profile.last_period.toString()}<br/><br/>
             Average cycle duration: {this.props.profile.cycle} days<br/><br/>
             Average period duration: {this.props.profile.duration} days<br/>
           </Segment>

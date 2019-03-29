@@ -18,8 +18,8 @@ class EditProfile extends React.Component {
 
   /** On successful submit, insert the data. */
   submit(data) {
-    const { birthday, cycle, duration, _id } = data;
-    Profiles.update(_id, { $set: { birthday, cycle, duration } }, (error) => (error ?
+    const { birthday, last_period, cycle, duration, _id } = data;
+    Profiles.update(_id, { $set: { birthday, last_period, cycle, duration } }, (error) => (error ?
         Bert.alert({ type: 'danger', message: `Update failed: ${error.message}` }) :
         Bert.alert({ type: 'success', message: 'Update succeeded' })));
   }
@@ -38,6 +38,7 @@ class EditProfile extends React.Component {
             <AutoForm schema={ProfileSchema} onSubmit={this.submit} model={this.props.doc}>
               <Segment>
                 <DateField name='birthday' label='Birthday'/>
+                <DateField name='last_period' label='Last period'/>
                 <NumField name='cycle' label='Average cycle duration' decimal={false}/>
                 <NumField name='duration' label='Average period duration' decimal={false}/>
                 <SubmitField value='Submit'/>
