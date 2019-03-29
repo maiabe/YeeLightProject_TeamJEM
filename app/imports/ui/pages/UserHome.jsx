@@ -1,19 +1,32 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Container, Table, Header, Loader, Grid } from 'semantic-ui-react';
+import { Container, Table, Header, Loader, Form, Icon } from 'semantic-ui-react';
 import { Stuffs } from '/imports/api/stuff/stuff';
 import StuffItem from '/imports/ui/components/StuffItem';
 import { withTracker } from 'meteor/react-meteor-data';
+import {
+  DateInput,
+  TimeInput,
+  DateTimeInput,
+  DatesRangeInput,
+} from 'semantic-ui-calendar-react';
 import PropTypes from 'prop-types';
-import { Calendar } from 'antd'
+import moment from 'moment';
 import './style.css'
-import 'antd/dist/antd.css'
+
 
 /** Renders a table containing all of the Stuff documents. Use <StuffItem> to render each row. */
 class UserHome extends React.Component {
 
-  state = {
-    date: new Date()
+  constructor(props) {
+    super(props);
+
+    this.handleChange = this.handleChange.bind(this);
+
+    this.state = {
+      date: '',
+      dates: []
+    };
   }
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
@@ -26,30 +39,58 @@ class UserHome extends React.Component {
     return (
         <Container id='container'>
           <Header id="calendarTitle" as="h1" textAlign="center">See Predictions</Header>
-          {/*          <Table celled>
-            <Table.Header>
-              <Table.Row>
-                <Table.HeaderCell>Name</Table.HeaderCell>
-                <Table.HeaderCell>Quantity</Table.HeaderCell>
-                <Table.HeaderCell>Condition</Table.HeaderCell>
-                <Table.HeaderCell>Edit</Table.HeaderCell>
-              </Table.Row>
-            </Table.Header>
-            <Table.Body>
-              {this.props.stuffs.map((stuff) => <StuffItem key={stuff._id} stuff={stuff} />)}
-            </Table.Body>
-          </Table>*/}
-          <Calendar
-              id='calendar'
-              // dateCellRender={dateCellRender(8)}
-              // monthCellRender={monthCellRender(3)}
-              // onPanelChange={ onPanelChange }
-              // onSelect={ onSelect }
-          />
+          <Form>
+            <DateInput
+                name="date"
+                dateFormat={'YYYY-MM-DD'}
+                inline
+                placeholder="Period Date"
+                value={this.state.date}
+                marked={this.state.dates}
+                markColor={'red'}
+                // icon={<Icon link name='add' />}
+                // iconPosition="left"
+                onChange={this.handleChange}
+                // clearable
+                // clearIcon={<Icon link name='remove'/>}
+                // onClear={this.clearDays}
+            />
+          </Form>
         </Container>
     );
   }
+
+  // marked = (event, {name, value}) => {
+  //   // if (this.state.hasOwnProperty(name)) {
+  //     this.state.dates.push(value);
+  //     console.log('date pushed');
+  //   // }
+  // };
+
+  clearDays = () => {
+    return this.state.days = [];
+  };
+
+  addDays = value => {
+    var i;
+    // replace '7' with the period duration of the user input
+    for (i = 0; i < 7; i++) {
+      this.state.dates.push(value);
+      // value = value.getDate() + 1;
+      value = moment(value, "YYYY-MM-DD").add(1,'days');
+    }
+  };
+
+  handleChange = (event, {name, value}) => {
+    this.state.dates = [];
+    if (this.state.hasOwnProperty(name)) {
+      this.setState({ [name]: value });
+      this.addDays(value);
+    }
+  };
+
 }
+
 
 /** Require an array of Stuff documents in the props. */
 UserHome.propTypes = {

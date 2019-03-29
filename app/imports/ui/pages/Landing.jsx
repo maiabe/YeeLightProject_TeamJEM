@@ -7,7 +7,7 @@ import './style.css';
 class Landing extends React.Component {
   render() {
     return (
-        <Grid verticalAlign='left' textAlign='left' container>
+        <Grid textAlign='left' container>
           <Grid.Column id='title' width={8}>
             <h1>Women's</h1>
             <h1>Wellness</h1>

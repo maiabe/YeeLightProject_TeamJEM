@@ -6,7 +6,7 @@ import './style.css';
 class GuidedTour extends React.Component {
   render() {
     return (
-        <Grid verticalAlign='left' textAlign='left' container>
+        <Grid textAlign='left' container>
           <Grid.Column id='title' width={8}>
             <h1>Guided Tour</h1>
           </Grid.Column>
