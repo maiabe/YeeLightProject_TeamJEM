@@ -1,3 +1,6 @@
+// Code commented out for now to prevent error: "dgram_1.createSocket is not a function"
+
+/**
 const yeelight = require("yeelight-awesome");
 const discover = new yeelight.Discover({
   port: 1982,
@@ -50,3 +53,5 @@ process.on("unhandledRejection", error => {
   console.log("Caught unhandledRejection");
   console.log(error);
 });
+ **/
+
