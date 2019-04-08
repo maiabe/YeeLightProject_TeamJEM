@@ -1,6 +1,22 @@
 
+#root {
+  background-image: linear-gradient(white, pink);
+  height: fit-content;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+
 body {
-  background-image: linear-gradient(white, white, white, lightpink);
+  background-image: linear-gradient(white, pink);
+  height: fit-content;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+footer {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
 }
 
 #title {
@@ -14,4 +30,32 @@ body {
   padding-left: 70px;
   padding-right: 50px;
   padding-bottom: 300px;
+}
+
+#container {
+  background-image: linear-gradient(white, floralwhite, floralwhite);
+  background-repeat: no-repeat;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+}
+
+#calendarTitle {
+  padding: 50px;
+}
+
+
+#calendar {
+  /*padding: 30px;*/
+  background-color: aqua;
+  text-align: center;
+  height: 100%;
+  width: 100px;
+  line-height: 50px;
+}
+
+
+#dateInput {
+  height: 300px;
 }

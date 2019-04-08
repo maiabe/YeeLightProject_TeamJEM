@@ -1,12 +1,8 @@
 {
-  "name": "wwat",
+  "name": "meteor-application-template-react",
   "private": true,
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/maiabe/periodtracker.git"
-  },
   "dependencies": {
-    "@babel/runtime": "^7.3.1",
+    "@babel/runtime": "^7.4.2",
     "classnames": "^2.2.6",
     "core-js": "^2.6.4",
     "graphql": "^0.8.2",
@@ -14,15 +10,16 @@
     "prop-types": "^15.6.2",
     "react": "^16.8.1",
     "react-addons-pure-render-mixin": "^15.6.2",
+    "react-calendar": "^2.18.1",
     "react-dom": "^16.8.1",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
+    "semantic-ui-calendar-react": "^0.14.3",
     "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^0.82.5",
+    "semantic-ui-react": "^0.86.0",
     "simpl-schema": "^1.5.5",
     "uniforms": "^1.31.0",
-    "uniforms-semantic": "^1.31.0",
-    "yeelight-awesome": "^1.0.12"
+    "uniforms-semantic": "^1.31.0"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.6",
@@ -36,9 +33,5 @@
   "scripts": {
     "start": "meteor --no-release-check --settings ../config/settings.development.json",
     "lint": "eslint --quiet --ext .jsx --ext .js ./imports"
-  },
-  "bugs": {
-    "url": "https://github.com/maiabe/periodtracker/issues"
-  },
-  "homepage": "https://github.com/maiabe/periodtracker#readme"
+  }
 }
