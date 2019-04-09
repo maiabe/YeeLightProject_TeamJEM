@@ -5,9 +5,6 @@ import { Profiles } from '/imports/api/profile/profile';
 import { withTracker } from 'meteor/react-meteor-data';
 import {
   DateInput,
-  TimeInput,
-  DateTimeInput,
-  DatesRangeInput,
 } from 'semantic-ui-calendar-react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
@@ -24,9 +21,12 @@ class UserHome extends React.Component {
 
     this.state = {
       date: '',
-      dates: []
+      lastPeriodDates: [],
+      predictionDates: [],
+      markColor: ''
     };
   }
+
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   render() {
@@ -45,10 +45,10 @@ class UserHome extends React.Component {
                 inline
                 placeholder="Period Date"
                 value={this.state.date}
-                marked={this.state.dates}
-                markColor={'red'}
+                marked={this.state.lastPeriodDates}
+                markColor={this.state.markColor}
                 // icon={<Icon link name='add' />}
-                // iconPosition="left"
+                iconPosition="left"
                 onChange={this.handleChange}
                 // clearable
                 // clearIcon={<Icon link name='remove'/>}
@@ -61,35 +61,42 @@ class UserHome extends React.Component {
 
   // marked = (event, {name, value}) => {
   //   // if (this.state.hasOwnProperty(name)) {
-  //     this.state.dates.push(value);
+  //     this.state.lastPeriodDates.push(value);
   //     console.log('date pushed');
   //   // }
   // };
 
-  clearDays = () => {
-    return this.state.days = [];
-  };
+
 
   addDays = value => {
     var i;
+    var j = 0;
     var duration = (this.props.profile == null) ? 7 : this.props.profile.duration; // default duration = 7;
-    for (i = 0; i < duration; i++) {
-      // this.state.dates.push(value);
-      this.state.dates.push(moment(value)); // all dates in array are Moment objects
-      // value = value.getDate() + 1;
-      value = moment(value, "YYYY-MM-DD").add(1,'days');
+
+    while (j < 12) {
+      for (i = 0; i < duration; i++) {
+        // this.state.lastPeriodDates.push(value);
+        this.state.lastPeriodDates.push(moment(value));                            // all lastPeriodDates in array are Moment objects
+        // value = value.getDate() + 1;
+        value = moment(value, "YYYY-MM-DD").add(1, 'days');
+        this.state.markColor = 'red';
+      }
+
+      value = moment(value, "YYYY-MM-DD").add(this.props.profile.cycle - this.props.profile.duration, 'days');
+      j++;
     }
+
   };
 
   handleChange = (event, {name, value}) => {
-    this.state.dates = [];
+    this.state.lastPeriodDates = [];
     if (this.state.hasOwnProperty(name)) {
       this.setState({ [name]: value });
       this.addDays(value);
     }
 
     var today = moment().format().split('T')[0];
-    if (this.state.dates.find(date => date.format().split('T')[0] === today)) {
+    if (this.state.lastPeriodDates.find(date => date.format().split('T')[0] === today)) {
       console.log('Change bulb to orange'); // light.setCtAbx(1700, "smooth", 5000);
     }
   };
