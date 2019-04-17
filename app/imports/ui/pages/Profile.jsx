@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Container, Header, Segment, Button } from 'semantic-ui-react';
+import { Container, Header, Segment, Button, Grid, Icon } from 'semantic-ui-react';
 import { Profiles } from '/imports/api/profile/profile';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
@@ -16,10 +16,10 @@ class Profile extends React.Component {
           <Container>
             <Header as="h2" textAlign="center">Your Profile</Header>
             <Segment>
-              Birthday: {this.props.profile.birthday.toDateString()}<br/><br/>
-              Last period: {this.props.profile.last_period.toDateString()}<br/><br/>
-              Average cycle duration: {this.props.profile.cycle} days<br/><br/>
-              Average period duration: {this.props.profile.duration} days<br/>
+              <Icon name="birthday cake"/>Birthday: {this.props.profile.birthday.toDateString()}<hr/>
+              Last period: {this.props.profile.last_period.toDateString()}<hr/>
+              Average cycle duration: {this.props.profile.cycle} days<hr/>
+              Average period duration: {this.props.profile.duration} days
             </Segment>
             <Button id='button' as={Link} to={`/edit/${this.props.profile._id}`}>Edit</Button>
           </Container>
