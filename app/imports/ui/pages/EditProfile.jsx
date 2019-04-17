@@ -41,7 +41,7 @@ class EditProfile extends React.Component {
                 <DateField name='last_period' label='Last period'/>
                 <NumField name='cycle' label='Average cycle duration' decimal={false}/>
                 <NumField name='duration' label='Average period duration' decimal={false}/>
-                <SubmitField value='Submit'/>
+                <SubmitField id='button' value='Submit'/>
                 <ErrorsField/>
                 <HiddenField name='owner' value='fakeuser@foo.com'/>
               </Segment>

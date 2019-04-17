@@ -38,10 +38,11 @@ class EditStuff extends React.Component {
             <Header as="h2" textAlign="center">Edit Stuff</Header>
             <AutoForm schema={StuffSchema} onSubmit={this.submit} model={this.props.doc}>
               <Segment>
-                <DateField name='birthday' label='Birthday'/>
-                <NumField name='cycle' label='Average cycle duration' decimal={false}/>
-                <NumField name='duration' label='Average period duration' decimal={false}/>
-                <SubmitField value='Submit'/>
+                <TextField type="date" name="birthday" label="Birthday"></TextField>
+                <TextField type="date" name="last_period" label="Last Period"></TextField>
+                <NumField name='cycle' label='Average cycle duration (days)' decimal={false}/>
+                <NumField name='duration' label='Average period duration (days)' decimal={false}/>
+                <SubmitField id='button' value='Submit'/>
                 <ErrorsField/>
                 <HiddenField name='owner' value='fakeuser@foo.com'/>
               </Segment>

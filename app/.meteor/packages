@@ -35,3 +35,7 @@ alanning:roles                   # https://github.com/alanning/meteor-roles
 
 # Prototyping only
 insecure@1.0.7                         # Enable client-side manipulation of Mongo collections.
+twbs:bootstrap
+rajit:bootstrap3-datepicker
+aldeed:autoform
+aldeed:autoform-bs-datepicker

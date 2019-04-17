@@ -16,19 +16,19 @@ class Profile extends React.Component {
           <Container>
             <Header as="h2" textAlign="center">Your Profile</Header>
             <Segment>
-              Birthday: {this.props.profile.birthday.toString()}<br/><br/>
-              Last period: {this.props.profile.last_period.toString()}<br/><br/>
+              Birthday: {this.props.profile.birthday.toDateString()}<br/><br/>
+              Last period: {this.props.profile.last_period.toDateString()}<br/><br/>
               Average cycle duration: {this.props.profile.cycle} days<br/><br/>
               Average period duration: {this.props.profile.duration} days<br/>
             </Segment>
-            <Link to={`/edit/${this.props.profile._id}`}>Edit</Link>
+            <Button id='button' as={Link} to={`/edit/${this.props.profile._id}`}>Edit</Button>
           </Container>
       );
     } else {
       return (
           <Container>
             <Link to={`/input`}>
-            <Button id='profileButton' color='red'>Create Profile</Button>
+            <Button id='button'>Create Profile</Button>
             </Link>
           </Container>
       );
