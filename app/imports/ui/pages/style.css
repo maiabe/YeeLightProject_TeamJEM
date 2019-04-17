@@ -59,3 +59,12 @@ footer {
 #dateInput {
   height: 300px;
 }
+
+#profileButton {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  alignment: center;
+  align-self: center;
+}
