@@ -2,7 +2,6 @@ import React from 'react';
 import { Profiles, ProfileSchema } from '/imports/api/profile/profile';
 import { Grid, Segment, Header } from 'semantic-ui-react';
 import AutoForm from 'uniforms-semantic/AutoForm';
-import DateField from 'uniforms-semantic/DateField';
 import TextField from 'uniforms-semantic/TextField';
 import NumField from 'uniforms-semantic/NumField';
 import SubmitField from 'uniforms-semantic/SubmitField';
@@ -10,12 +9,6 @@ import HiddenField from 'uniforms-semantic/HiddenField';
 import ErrorsField from 'uniforms-semantic/ErrorsField';
 import { Bert } from 'meteor/themeteorchef:bert';
 import { Meteor } from 'meteor/meteor';
-import {
-  DateInput,
-  TimeInput,
-  DateTimeInput,
-  DatesRangeInput
-} from 'semantic-ui-calendar-react';
 
 /** Renders the Page for adding a document. */
 class InputData extends React.Component {
@@ -40,9 +33,9 @@ class InputData extends React.Component {
 
   /** On submit, insert the data. */
   submit(data) {
-    const { birthday, last_period, cycle, duration } = data;
+    const { name, birthday, cycle, duration } = data;
     const owner = Meteor.user().username;
-    Profiles.insert({ birthday, last_period, cycle, duration, owner }, this.insertCallback);
+    Profiles.insert({ name, birthday, cycle, duration, owner }, this.insertCallback);
     // this.browserHistory.push('/profile');
   }
 
@@ -54,8 +47,8 @@ class InputData extends React.Component {
             <Header as="h2" textAlign="center">Input Data</Header>
             <AutoForm ref={(ref) => {this.formRef = ref;}} schema={ProfileSchema} onSubmit={this.submit}>
               <Segment>
-                <TextField type="date" name="birthday" label="Birthday"></TextField>
-                <TextField type="date" name="last_period" label="Last Period"></TextField>
+                <TextField name="name" label="Name"></TextField>
+                <DateField type="date" name="birthday" label="Birthday"></DateField>
                 <NumField name='cycle' label='Average cycle duration (days)' decimal={false}/>
                 <NumField name='duration' label='Average period duration (days)' decimal={false}/>
                 <SubmitField id='button' value='Submit'/>
