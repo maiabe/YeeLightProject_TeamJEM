@@ -48,7 +48,7 @@ class InputData extends React.Component {
             <AutoForm ref={(ref) => {this.formRef = ref;}} schema={ProfileSchema} onSubmit={this.submit}>
               <Segment>
                 <TextField name="name" label="Name"></TextField>
-                <DateField type="date" name="birthday" label="Birthday"></DateField>
+                <TextField type="date" name="birthday" label="Birthday"></TextField>
                 <NumField name='cycle' label='Average cycle duration (days)' decimal={false}/>
                 <NumField name='duration' label='Average period duration (days)' decimal={false}/>
                 <SubmitField id='button' value='Submit'/>

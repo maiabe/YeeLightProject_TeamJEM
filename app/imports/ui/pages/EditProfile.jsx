@@ -11,7 +11,6 @@ import ErrorsField from 'uniforms-semantic/ErrorsField';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
-import DateField from 'uniforms-semantic/DateField';
 
 /** Renders the Page for editing a single document. */
 class EditProfile extends React.Component {
