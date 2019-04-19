@@ -1,19 +1,13 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Container, Table, Header, Loader, Form, Icon } from 'semantic-ui-react';
+import { Container, Loader, Button } from 'semantic-ui-react';
 import { Profiles } from '/imports/api/profile/profile';
 import { withTracker } from 'meteor/react-meteor-data';
-import {
-  DateInput,
-  TimeInput,
-  DateTimeInput,
-  DatesRangeInput,
-} from 'semantic-ui-calendar-react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 import './style.css'
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid'
+import interactionPlugin from '@fullcalendar/interaction'
 import '@fullcalendar/core/main.css';
 import '@fullcalendar/daygrid/main.css';
 
@@ -22,12 +16,11 @@ class UserHome extends React.Component {
 
   constructor(props) {
     super(props);
-
-    this.handleChange = this.handleChange.bind(this);
-
+    this.calendarComponentRef = React.createRef();
+    // this.handleDateClick() = this.handleDateClick().bind(this);
     this.state = {
-      date: '',
-      dates: []
+      period: [],
+      pms: []
     };
   }
 
@@ -39,29 +32,24 @@ class UserHome extends React.Component {
   /** Render the page once subscriptions have been received. */
   renderPage() {
     return (
-        <Container id='container'>
-          <Header id="calendarTitle" as="h1" textAlign="center">See Predictions</Header>
-          <Form>
-            {/*<DateInput*/}
-                {/*name="date"*/}
-                {/*dateFormat={'YYYY-MM-DD'}*/}
-                {/*inline*/}
-                {/*placeholder="Period Date"*/}
-                {/*value={this.state.date}*/}
-                {/*marked={this.state.dates}*/}
-                {/*markColor={'red'}*/}
-                {/*// icon={<Icon link name='add' />}*/}
-                {/*// iconPosition="left"*/}
-                {/*onChange={this.handleChange}*/}
-                {/*// clearable*/}
-                {/*// clearIcon={<Icon link name='remove'/>}*/}
-                {/*// onClear={this.clearDays}*/}
-            {/*/>*/}
-            <FullCalendar
-                defaultView="dayGridMonth"
-                plugins={[ dayGridPlugin ]}
-            />
-          </Form>
+        <Container>
+          <Button id='button'>Period</Button>
+          <Button id='button'>PMS</Button>
+          <FullCalendar
+              defaultView = "dayGridMonth"
+              header = {{
+                left: 'prev,next today',
+                center: 'title',
+              }}
+              plugins={[ dayGridPlugin, interactionPlugin ]}
+              /*customButtons = {{
+                inputPeriod: {
+                  text: 'Period', click: function () {
+                  }
+                }
+              }}*/
+              dateClick = { this.handleDateClick }
+          />
         </Container>
     );
   }
@@ -73,7 +61,7 @@ class UserHome extends React.Component {
   //   // }
   // };
 
-  clearDays = () => {
+  /*clearDays = () => {
     return this.state.days = [];
   };
 
@@ -86,24 +74,15 @@ class UserHome extends React.Component {
       // value = value.getDate() + 1;
       value = moment(value, "YYYY-MM-DD").add(1,'days');
     }
-  };
+  };*/
 
-  handleChange = (event, {name, value}) => {
-    this.state.dates = [];
-    if (this.state.hasOwnProperty(name)) {
-      this.setState({ [name]: value });
-      this.addDays(value);
-    }
-
-    var today = moment().format().split('T')[0];
-    if (this.state.dates.find(date => date.format().split('T')[0] === today)) {
-      console.log('Change bulb to orange'); // light.setCtAbx(1700, "smooth", 5000);
-    }
-  };
+  handleDateClick = (arg) => {
+    // do something
+  }
 }
 
 
-/** Require an array of Stuff documents in the props. */
+/** Require an array of Profile documents in the props. */
 UserHome.propTypes = {
   ready: PropTypes.bool.isRequired,
 };
