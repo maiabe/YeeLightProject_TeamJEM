@@ -13,10 +13,10 @@ import '@fullcalendar/daygrid/main.css';
 
 /** Renders a table containing all of the Stuff documents. Use <StuffItem> to render each row. */
 class UserHome extends React.Component {
-
+  calendarRef = React.createRef();
   constructor(props) {
     super(props);
-    this.calendarRef = React.createRef();
+    // this.calendarRef = React.createRef();
     this.handleDateClick = this.handleDateClick.bind(this);
     const duration = (this.props.profile == null) ? 5 : this.props.profile.duration;
     this.state = {
@@ -59,13 +59,13 @@ class UserHome extends React.Component {
   }
 
   handleDateClick = (clicked) => {
-    const found = this.state.period.find(period => period.start == clicked.date);
-    console.log(found);
+    const found = this.state.period.find(period => period.start.getTime() == clicked.date.getTime());
     if (!found) {
       let last = new Date(clicked.date.toDateString());
       last.setDate(last.getDate() + this.state.duration);
       this.setState({
         period: this.state.period.concat({
+          id: clicked.date.toString(),
           title: 'period',
           start: clicked.date,
           end: last,
@@ -74,7 +74,8 @@ class UserHome extends React.Component {
         })
       })
     } else {
-      found.remove();
+      this.calendarRef.current.getApi().getEventById(clicked.date.toString()).remove();
+      this.state.period.pop();
     }
 
     //this.state.period.push({title: 'period', start: clicked.date, end: last });
