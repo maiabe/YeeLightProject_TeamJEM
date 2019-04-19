@@ -16,9 +16,11 @@ class UserHome extends React.Component {
 
   constructor(props) {
     super(props);
-    this.calendarComponentRef = React.createRef();
-    // this.handleDateClick() = this.handleDateClick().bind(this);
+    this.calendarRef = React.createRef();
+    this.handleDateClick = this.handleDateClick.bind(this);
+    const duration = (this.props.profile == null) ? 5 : this.props.profile.duration;
     this.state = {
+      duration: duration,
       period: [],
       pms: []
     };
@@ -33,54 +35,44 @@ class UserHome extends React.Component {
   renderPage() {
     return (
         <Container>
-          <Button id='button'>Period</Button>
-          <Button id='button'>PMS</Button>
+          <Button id='inputButton'>Period</Button>
+          <Button id='inputButton'>PMS</Button>
           <FullCalendar
               defaultView = "dayGridMonth"
+              plugins={[ dayGridPlugin, interactionPlugin ]}
+              ref={this.calendarRef}
               header = {{
                 left: 'prev,next today',
                 center: 'title',
               }}
-              plugins={[ dayGridPlugin, interactionPlugin ]}
               /*customButtons = {{
                 inputPeriod: {
                   text: 'Period', click: function () {
                   }
                 }
               }}*/
+              events = {this.state.period}
               dateClick = { this.handleDateClick }
           />
         </Container>
     );
   }
 
-  // marked = (event, {name, value}) => {
-  //   // if (this.state.hasOwnProperty(name)) {
-  //     this.state.dates.push(value);
-  //     console.log('date pushed');
-  //   // }
-  // };
-
-  /*clearDays = () => {
-    return this.state.days = [];
-  };
-
-  addDays = value => {
-    var i;
-    var duration = (this.props.profile == null) ? 7 : this.props.profile.duration; // default duration = 7;
-    for (i = 0; i < duration; i++) {
-      // this.state.dates.push(value);
-      this.state.dates.push(moment(value)); // all dates in array are Moment objects
-      // value = value.getDate() + 1;
-      value = moment(value, "YYYY-MM-DD").add(1,'days');
-    }
-  };*/
-
-  handleDateClick = (arg) => {
-    // do something
+  handleDateClick = (clicked) => {
+    let last = new Date(clicked.date.toDateString());
+    last.setDate(last.getDate() + this.state.duration);
+    this.setState({
+      period: this.state.period.concat({
+        title: 'period',
+        start: clicked.date,
+        end: last,
+        allDay: clicked.allDay
+      })
+    })
+    //this.state.period.push({title: 'period', start: clicked.date, end: last });
+    // console.log(this.state.period);
   }
 }
-
 
 /** Require an array of Profile documents in the props. */
 UserHome.propTypes = {
