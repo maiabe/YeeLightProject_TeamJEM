@@ -27,6 +27,7 @@
     "uniforms": "^1.31.0",
     "uniforms-semantic": "^1.31.0",
     "webpack": "^4.30.0"
+    "yeelight-awesome": "^1.0.12"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.6",

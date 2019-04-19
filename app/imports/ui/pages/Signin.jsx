@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, NavLink, Redirect } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
-import { Container, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
+import { Button, Container, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
 
 /**
  * Signin page overrides the form’s submit event and call Meteor’s loginWithPassword().
@@ -32,9 +32,23 @@ export default class Signin extends React.Component {
       if (err) {
         this.setState({ error: err.reason });
       } else {
+        Meteor.call('discover',{},(err) => {
+          if (err) {
+            alert(err);
+          }
+        });
         this.setState({ error: '', redirectToReferer: true });
       }
     });
+  }
+
+  toggleButton() {
+    console.log("HELP!")
+    Meteor.call('toggleBulb', {}, (err) => {
+      if (err) {
+        alert(err);
+      }
+    })
   }
 
   /** Render the signin form. */
@@ -78,6 +92,11 @@ export default class Signin extends React.Component {
               <Message>
                 <Link to="/signup">Click here to Register</Link>
               </Message>
+
+              <Form onSubmit={this.toggleButton}>
+                <Form.Button color="red" content="Toggle"/>
+              </Form>
+
               {this.state.error === '' ? (
                   ''
               ) : (
