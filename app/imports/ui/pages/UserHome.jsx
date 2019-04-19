@@ -59,16 +59,24 @@ class UserHome extends React.Component {
   }
 
   handleDateClick = (clicked) => {
-    let last = new Date(clicked.date.toDateString());
-    last.setDate(last.getDate() + this.state.duration);
-    this.setState({
-      period: this.state.period.concat({
-        title: 'period',
-        start: clicked.date,
-        end: last,
-        allDay: clicked.allDay
+    const found = this.state.period.find(period => period.start == clicked.date);
+    console.log(found);
+    if (!found) {
+      let last = new Date(clicked.date.toDateString());
+      last.setDate(last.getDate() + this.state.duration);
+      this.setState({
+        period: this.state.period.concat({
+          title: 'period',
+          start: clicked.date,
+          end: last,
+          allDay: clicked.allDay,
+          backgroundColor: 'red'
+        })
       })
-    })
+    } else {
+      found.remove();
+    }
+
     //this.state.period.push({title: 'period', start: clicked.date, end: last });
     // console.log(this.state.period);
   }
