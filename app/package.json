@@ -3,6 +3,9 @@
   "private": true,
   "dependencies": {
     "@babel/runtime": "^7.4.2",
+    "@fullcalendar/core": "^4.0.2",
+    "@fullcalendar/daygrid": "^4.0.1",
+    "@fullcalendar/react": "^4.0.2-beta",
     "classnames": "^2.2.6",
     "core-js": "^2.6.4",
     "graphql": "^0.8.2",
@@ -12,7 +15,6 @@
     "react-addons-pure-render-mixin": "^15.6.2",
     "react-calendar": "^2.18.1",
     "react-dom": "^16.8.1",
-    "react-native": "^0.59.5",
     "react-native-calendars": "^1.32.0",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
@@ -22,10 +24,12 @@
     "semantic-ui-react": "^0.86.0",
     "simpl-schema": "^1.5.5",
     "uniforms": "^1.31.0",
-    "uniforms-semantic": "^1.31.0"
+    "uniforms-semantic": "^1.31.0",
+    "webpack": "^4.30.0"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.6",
+    "css-loader": "^2.1.1",
     "eslint": "^5.13.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.16.0",
@@ -35,6 +39,9 @@
   },
   "scripts": {
     "start": "meteor --no-release-check --settings ../config/settings.development.json",
-    "lint": "eslint --quiet --ext .jsx --ext .js ./imports"
+    "lint": "eslint --quiet --ext .jsx --ext .js ./imports",
+    "build": "./node_modules/.bin/webpack",
+    "build:prod": "./node_modules/.bin/webpack -p",
+    "watch": "./node_modules/.bin/webpack --watch"
   }
 }

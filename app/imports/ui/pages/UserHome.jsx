@@ -12,9 +12,10 @@ import {
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import './style.css'
-import { Calendar } from 'react-native-calendars';
-
-
+import FullCalendar from '@fullcalendar/react';
+import dayGridPlugin from '@fullcalendar/daygrid'
+import '@fullcalendar/core/main.css';
+import '@fullcalendar/daygrid/main.css';
 
 /** Renders a table containing all of the Stuff documents. Use <StuffItem> to render each row. */
 class UserHome extends React.Component {
@@ -41,20 +42,24 @@ class UserHome extends React.Component {
         <Container id='container'>
           <Header id="calendarTitle" as="h1" textAlign="center">See Predictions</Header>
           <Form>
-            <DateInput
-                name="date"
-                dateFormat={'YYYY-MM-DD'}
-                inline
-                placeholder="Period Date"
-                value={this.state.date}
-                marked={this.state.dates}
-                markColor={'red'}
-                // icon={<Icon link name='add' />}
-                // iconPosition="left"
-                onChange={this.handleChange}
-                // clearable
-                // clearIcon={<Icon link name='remove'/>}
-                // onClear={this.clearDays}
+            {/*<DateInput*/}
+                {/*name="date"*/}
+                {/*dateFormat={'YYYY-MM-DD'}*/}
+                {/*inline*/}
+                {/*placeholder="Period Date"*/}
+                {/*value={this.state.date}*/}
+                {/*marked={this.state.dates}*/}
+                {/*markColor={'red'}*/}
+                {/*// icon={<Icon link name='add' />}*/}
+                {/*// iconPosition="left"*/}
+                {/*onChange={this.handleChange}*/}
+                {/*// clearable*/}
+                {/*// clearIcon={<Icon link name='remove'/>}*/}
+                {/*// onClear={this.clearDays}*/}
+            {/*/>*/}
+            <FullCalendar
+                defaultView="dayGridMonth"
+                plugins={[ dayGridPlugin ]}
             />
           </Form>
         </Container>
