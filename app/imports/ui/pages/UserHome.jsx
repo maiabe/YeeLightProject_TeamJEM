@@ -18,11 +18,13 @@ class UserHome extends React.Component {
     super(props);
     // this.calendarRef = React.createRef();
     this.handleDateClick = this.handleDateClick.bind(this);
-    const duration = (this.props.profile == null) ? 5 : this.props.profile.duration;
+    const duration = (this.props.profile == null) ? 5 : this.props.profile.period;
     const cycle = (this.props.profile == null) ? 28 : this.props.profile.cycle;
+    const pms_duration = (this.props.profile == null) ? 7 : this.props.profile.pms;
     this.state = {
       duration: duration,
       cycle: cycle,
+      pms_duration: pms_duration,
       period: [],
       pms: []
     };
@@ -88,7 +90,7 @@ class UserHome extends React.Component {
       last.setDate(first.getDate() + this.state.duration);
 
       pmsStart = new Date(first.toDateString());
-      pmsStart.setDate(pmsStart.getDate() - 5);
+      pmsStart.setDate(pmsStart.getDate() - this.state.pms_duration);
       pmsEnd = new Date(first.toDateString());
 
       this.setState({
