@@ -61,19 +61,19 @@ class UserHome extends React.Component {
   }
 
   handleDateClick = (clicked) => {
+    // if clicked date is not already first date of period
     if (!this.state.period.find(period => period.start.toDateString() === clicked.date.toDateString())) {
       let first = clicked.date;
       let last;
 
-      for (let i = 0; i < 2; i++) {
+      for (let i = 0; i < 2; i++) {   // only shows prediction for one month in advance
         first = new Date();
         first.setDate(clicked.date.getDate() + i * this.state.cycle);
         last = new Date(first.toDateString());
         last.setDate(first.getDate() + this.state.duration);
-        console.log(first)
-        console.log(last);
-        this.setState({
+        this.setState({   // add next predicted period to events array
           period: this.state.period.concat({
+            groupId: first.toDateString(),
             title: 'period',
             start: first,
             end: last,
@@ -81,9 +81,16 @@ class UserHome extends React.Component {
             backgroundColor: 'red'
           })
         });
-        console.log(this.state.period);
+
+        const today = new Date();
+        const periodNow = this.state.period.find(period => today.getTime() > period.start.getTime() &&
+            today.getTime() < period.end.getTime());
+        if (periodNow) {
+          console.log("Currently on period - turn bulb orange.");
+        }
       }
     } else {
+      // if clicked date is already first date of period, remove it and its prediction
       this.state.period.pop();
       this.state.period.pop();
       this.setState({ period: this.state.period });
