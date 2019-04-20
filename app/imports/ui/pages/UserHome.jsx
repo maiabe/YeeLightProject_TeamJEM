@@ -60,7 +60,7 @@ class UserHome extends React.Component {
       let first = clicked.date;
       let last;
 
-      for (let i = 0; i < 2; i++) {   // only shows prediction for one month in advance
+      for (let i = 0; i < 12; i++) {
         first = new Date();
         first.setDate(clicked.date.getDate() + i * this.state.cycle);
         last = new Date(first.toDateString());
