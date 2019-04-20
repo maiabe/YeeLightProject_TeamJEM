@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Container, Loader, Button, Form } from 'semantic-ui-react';
+import { Container, Loader, Button, Card, Label, Grid } from 'semantic-ui-react';
 import { Profiles } from '/imports/api/profile/profile';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
@@ -25,7 +25,7 @@ class UserHome extends React.Component {
       pms: []
     };
   }
-  
+
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   render() {
@@ -55,6 +55,30 @@ class UserHome extends React.Component {
               events = {this.state.period}
               dateClick = { this.handleDateClick }
           />
+          <Card>
+            <Card.Content>
+              <Card.Header id='header'>Legend</Card.Header>
+              <Container>
+                <Label.Group size='mini'>
+                  <Grid>
+                    <Grid.Row>
+                      <Grid.Column>
+                        <Label circular color='red' horizontal></Label> Period
+                      </Grid.Column>
+                    </Grid.Row>
+
+                      <Grid.Row>
+                      <Grid.Column>
+                        <Label circular color='yellow' horizontal></Label> PMS
+                      </Grid.Column>
+                    </Grid.Row>
+
+                  </Grid>
+                </Label.Group>
+              </Container>
+            </Card.Content>
+          </Card>
+
         </Container>
 
     );

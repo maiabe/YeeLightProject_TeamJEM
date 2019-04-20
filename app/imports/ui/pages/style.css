@@ -70,3 +70,12 @@ footer {
   color: white;
   margin-bottom: 20px;
 }
+
+#header {
+  margin-bottom: 20px;
+}
+
+#content {
+  margin: 0px 10px 10px 10px;
+}
+
