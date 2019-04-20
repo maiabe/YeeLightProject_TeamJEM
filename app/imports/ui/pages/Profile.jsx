@@ -19,7 +19,8 @@ class Profile extends React.Component {
               Name: {this.props.profile.name}<hr/>
               <Icon name="birthday cake"/>Birthday: {this.props.profile.birthday.toDateString()}<hr/>
               Average cycle duration: {this.props.profile.cycle} days<hr/>
-              Average period duration: {this.props.profile.duration} days
+              Average period duration: {this.props.profile.period} days<hr/>
+              Average PMS duration: {this.props.profile.pms} days<hr/>
             </Segment>
             <Button id='button' as={Link} to={`/edit/${this.props.profile._id}`}>Edit</Button>
           </Container>

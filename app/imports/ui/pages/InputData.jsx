@@ -33,9 +33,9 @@ class InputData extends React.Component {
 
   /** On submit, insert the data. */
   submit(data) {
-    const { name, birthday, cycle, duration } = data;
+    const { name, birthday, cycle, period, pms } = data;
     const owner = Meteor.user().username;
-    Profiles.insert({ name, birthday, cycle, duration, owner }, this.insertCallback);
+    Profiles.insert({ name, birthday, cycle, period, pms, owner }, this.insertCallback);
     // this.browserHistory.push('/profile');
   }
 
@@ -50,7 +50,8 @@ class InputData extends React.Component {
                 <TextField name="name" label="Name"></TextField>
                 <TextField type="date" name="birthday" label="Birthday"></TextField>
                 <NumField name='cycle' label='Average cycle duration (days)' decimal={false}/>
-                <NumField name='duration' label='Average period duration (days)' decimal={false}/>
+                <NumField name='period' label='Average period duration (days)' decimal={false}/>
+                <NumField name='pms' label='Average PMS duration (days)' decimal={false}/>
                 <SubmitField id='button' value='Submit'/>
                 <ErrorsField/>
                 <HiddenField name='owner' value='fakeuser@foo.com'/>

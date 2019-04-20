@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Container, Loader, Button } from 'semantic-ui-react';
+import { Container, Loader } from 'semantic-ui-react';
 import { Profiles } from '/imports/api/profile/profile';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
@@ -37,8 +37,6 @@ class UserHome extends React.Component {
   renderPage() {
     return (
         <Container>
-          <Button id='inputButton'>Period</Button>
-          <Button id='inputButton'>PMS</Button>
           <FullCalendar
               defaultView = "dayGridMonth"
               plugins={[ dayGridPlugin, interactionPlugin ]}
@@ -47,12 +45,6 @@ class UserHome extends React.Component {
                 left: 'prev,next today',
                 center: 'title',
               }}
-              /*customButtons = {{
-                inputPeriod: {
-                  text: 'Period', click: function () {
-                  }
-                }
-              }}*/
               events = {this.state.period}
               dateClick = { this.handleDateClick }
           />
@@ -66,7 +58,7 @@ class UserHome extends React.Component {
       let first = clicked.date;
       let last;
 
-      for (let i = 0; i < 2; i++) {   // only shows prediction for one month in advance
+      for (let i = 0; i < 12; i++) {   // only shows prediction for one month in advance
         first = new Date();
         first.setDate(clicked.date.getDate() + i * this.state.cycle);
         last = new Date(first.toDateString());
