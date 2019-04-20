@@ -10,7 +10,8 @@ const ProfileSchema = new SimpleSchema({
   name: String,
   birthday: Date,
   cycle: Number,
-  duration: Number,
+  period: Number,
+  pms: Number,
   owner: String,
 }, { tracker: Tracker });
 
