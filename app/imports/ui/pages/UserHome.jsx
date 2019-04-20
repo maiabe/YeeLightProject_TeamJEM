@@ -45,7 +45,7 @@ class UserHome extends React.Component {
                 left: 'prev,next today',
                 center: 'title',
               }}
-              events = {this.state.period}
+              events = {this.state.period.concat(this.state.pms)}
               dateClick = { this.handleDateClick }
           />
           <Card>
@@ -107,6 +107,8 @@ class UserHome extends React.Component {
           backgroundColor: '#FBBD08'
         })
       });
+
+      console.log(this.state.pms);
 
       /*const today = new Date();
       const periodNow = this.state.period.find(period => today.getTime() > period.start.getTime() &&
