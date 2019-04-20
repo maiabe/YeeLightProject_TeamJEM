@@ -19,8 +19,10 @@ class UserHome extends React.Component {
     // this.calendarRef = React.createRef();
     this.handleDateClick = this.handleDateClick.bind(this);
     const duration = (this.props.profile == null) ? 5 : this.props.profile.duration;
+    const cycle = (this.props.profile == null) ? 28 : this.props.profile.cycle;
     this.state = {
       duration: duration,
+      cycle: cycle,
       period: [],
       pms: []
     };
@@ -40,7 +42,7 @@ class UserHome extends React.Component {
           <FullCalendar
               defaultView = "dayGridMonth"
               plugins={[ dayGridPlugin, interactionPlugin ]}
-              ref={this.calendarRef}
+              // ref={this.calendarRef}
               header = {{
                 left: 'prev,next today',
                 center: 'title',
@@ -59,27 +61,32 @@ class UserHome extends React.Component {
   }
 
   handleDateClick = (clicked) => {
-    const found = this.state.period.find(period => period.start.getTime() == clicked.date.getTime());
-    if (!found) {
-      let last = new Date(clicked.date.toDateString());
-      last.setDate(last.getDate() + this.state.duration);
-      this.setState({
-        period: this.state.period.concat({
-          id: clicked.date.toString(),
-          title: 'period',
-          start: clicked.date,
-          end: last,
-          allDay: clicked.allDay,
-          backgroundColor: 'red'
-        })
-      })
-    } else {
-      this.calendarRef.current.getApi().getEventById(clicked.date.toString()).remove();
-      this.state.period.pop();
-    }
+    if (!this.state.period.find(period => period.start.getTime() == clicked.date.getTime())) {
+      let first = clicked.date;
+      let last;
 
-    //this.state.period.push({title: 'period', start: clicked.date, end: last });
-    // console.log(this.state.period);
+      for (let i = 0; i < 3; i++) {
+        first = new Date();
+        first.setDate(clicked.date.getDate() + i * this.state.cycle);
+        last = new Date(first.toDateString());
+        last.setDate(first.getDate() + this.state.duration);
+        console.log(first)
+        console.log(last);
+        this.setState({
+          period: this.state.period.concat({
+            title: 'period',
+            start: first,
+            end: last,
+            allDay: true,
+            backgroundColor: 'red'
+          })
+        });
+        console.log(this.state.period);
+      }
+    } else {
+      this.state.period.pop();
+      this.setState({ period: this.state.period });
+    }
   }
 }
 
