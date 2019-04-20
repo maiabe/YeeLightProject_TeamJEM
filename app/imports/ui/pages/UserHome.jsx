@@ -38,8 +38,6 @@ class UserHome extends React.Component {
   renderPage() {
     return (
         <Container>
-          <Button id='inputButton'>Period</Button>
-          <Button id='inputButton'>PMS</Button>
           <FullCalendar
               defaultView = "dayGridMonth"
               plugins={[ dayGridPlugin, interactionPlugin ]}
