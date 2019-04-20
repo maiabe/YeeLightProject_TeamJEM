@@ -61,11 +61,11 @@ class UserHome extends React.Component {
   }
 
   handleDateClick = (clicked) => {
-    if (!this.state.period.find(period => period.start.getTime() == clicked.date.getTime())) {
+    if (!this.state.period.find(period => period.start.toDateString() === clicked.date.toDateString())) {
       let first = clicked.date;
       let last;
 
-      for (let i = 0; i < 3; i++) {
+      for (let i = 0; i < 2; i++) {
         first = new Date();
         first.setDate(clicked.date.getDate() + i * this.state.cycle);
         last = new Date(first.toDateString());
@@ -84,6 +84,7 @@ class UserHome extends React.Component {
         console.log(this.state.period);
       }
     } else {
+      this.state.period.pop();
       this.state.period.pop();
       this.setState({ period: this.state.period });
     }
