@@ -61,6 +61,7 @@ class UserHome extends React.Component {
   }
 
   handleDateClick = (clicked) => {
+    this.state.period = [];
     const found = this.state.period.find(period => period.start == clicked.date);
     console.log(found);
     if (!found) {
