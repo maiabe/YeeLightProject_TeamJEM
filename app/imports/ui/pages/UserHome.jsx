@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Container, Loader, Button, Form } from 'semantic-ui-react';
+import { Container, Loader, Button } from 'semantic-ui-react';
 import { Profiles } from '/imports/api/profile/profile';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
@@ -27,7 +27,7 @@ class UserHome extends React.Component {
       pms: []
     };
   }
-  
+
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   render() {
@@ -48,12 +48,6 @@ class UserHome extends React.Component {
                 left: 'prev,next today',
                 center: 'title',
               }}
-              /*customButtons = {{
-                inputPeriod: {
-                  text: 'Period', click: function () {
-                  }
-                }
-              }}*/
               events = {this.state.period}
               dateClick = { this.handleDateClick }
           />
