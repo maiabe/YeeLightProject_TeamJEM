@@ -20,12 +20,12 @@ class UserHome extends React.Component {
     this.handleDateClick = this.handleDateClick.bind(this);
     const duration = (this.props.profile == null) ? 5 : this.props.profile.duration;
     this.state = {
+      willSet: null,
       duration: duration,
       period: [],
       pms: []
     };
   }
-
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   render() {
@@ -39,10 +39,10 @@ class UserHome extends React.Component {
           <Button id='inputButton'>Period</Button>
           <Button id='inputButton'>PMS</Button>
           <FullCalendar
-              defaultView = "dayGridMonth"
-              plugins={[ dayGridPlugin, interactionPlugin ]}
+              defaultView="dayGridMonth"
+              plugins={[dayGridPlugin, interactionPlugin]}
               ref={this.calendarRef}
-              header = {{
+              header={{
                 left: 'prev,next today',
                 center: 'title',
               }}
@@ -52,8 +52,8 @@ class UserHome extends React.Component {
                   }
                 }
               }}*/
-              events = {this.state.period}
-              dateClick = { this.handleDateClick }
+              events={[this.state.period, this.state.pms]}
+              dateClick={this.handleDateClick}
           />
           <Card>
             <Card.Content>
@@ -67,7 +67,7 @@ class UserHome extends React.Component {
                       </Grid.Column>
                     </Grid.Row>
 
-                      <Grid.Row>
+                    <Grid.Row>
                       <Grid.Column>
                         <Label circular color='yellow' horizontal></Label> PMS
                       </Grid.Column>
@@ -85,24 +85,28 @@ class UserHome extends React.Component {
   }
 
   handleDateClick = (clicked) => {
-    this.state.period = [];
-    const found = this.state.period.find(period => period.start == clicked.date);
-    console.log(found);
-    if (!found) {
-      let last = new Date(clicked.date.toDateString());
-      last.setDate(last.getDate() + this.state.duration);
-      this.setState({
-        period: this.state.period.concat({
-          title: 'period',
-          start: clicked.date,
-          end: last,
-          allDay: clicked.allDay,
-          backgroundColor: 'red'
-        })
-      })
-    } else {
-      found.remove();
-    }
+    let last = new Date(clicked.date.toDateString());
+    last.setDate(last.getDate() + this.state.duration);
+    let pmsStart = new Date(clicked.date.toDateString());
+    pmsStart.setDate(pmsStart.getDate() - 5);
+    let pmsEnd = new Date(clicked.date.toDateString());
+    pmsEnd.setDate(pmsEnd.getDate());
+    this.setState({
+      period: {
+        title: 'Period',
+        start: clicked.date,
+        end: last,
+        allDay: clicked.allDay,
+        backgroundColor: '#DB2828'
+      },
+      pms: {
+        title: 'PMS',
+        start: pmsStart,
+        end: pmsEnd,
+        allDay: clicked.allDay,
+        backgroundColor: '#FBBD08'
+      }
+    });
 
     //this.state.period.push({title: 'period', start: clicked.date, end: last });
     // console.log(this.state.period);
