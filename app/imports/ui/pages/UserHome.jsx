@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Container, Loader, Button } from 'semantic-ui-react';
+import { Container, Loader, Card, Label, Grid } from 'semantic-ui-react';
 import { Profiles } from '/imports/api/profile/profile';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
@@ -46,48 +46,44 @@ class UserHome extends React.Component {
                 left: 'prev,next today',
                 center: 'title',
               }}
-              events = {this.state.period}
+              events = {this.state.period.concat(this.state.pms)}
               dateClick = { this.handleDateClick }
           />
         </Container>
-
     );
   }
 
   handleDateClick = (clicked) => {
-    // if clicked date is not already first date of period
-    if (!this.state.period.find(period => period.start.toDateString() === clicked.date.toDateString())) {
-      let first = clicked.date;
-      let last;
+    this.state.period = [];
+    this.state.pms = [];
+    let first, last, pmsStart, pmsEnd;
 
-      for (let i = 0; i < 12; i++) {
-        first = new Date();
-        first.setDate(clicked.date.getDate() + i * this.state.cycle);
-        last = new Date(first.toDateString());
-        last.setDate(first.getDate() + this.state.duration);
-        this.setState({   // add next predicted period to events array
-          period: this.state.period.concat({
-            groupId: first.toDateString(),
-            title: 'period',
-            start: first,
-            end: last,
-            allDay: true,
-            backgroundColor: 'red'
-          })
-        });
+    for (let i = 0; i < 12; i++) {
+      first = new Date();
+      first.setDate(clicked.date.getDate() + i * this.state.cycle);
+      last = new Date(first.toDateString());
+      last.setDate(first.getDate() + this.state.duration);
 
-        const today = new Date();
-        const periodNow = this.state.period.find(period => today.getTime() > period.start.getTime() &&
-            today.getTime() < period.end.getTime());
-        if (periodNow) {
-          console.log("Currently on period - turn bulb orange.");
-        }
-      }
-    } else {
-      // if clicked date is already first date of period, remove it and its prediction
-      this.state.period.pop();
-      this.state.period.pop();
-      this.setState({ period: this.state.period });
+      pmsStart = new Date(first.toDateString());
+      pmsStart.setDate(pmsStart.getDate() - 5);
+      pmsEnd = new Date(first.toDateString());
+
+      this.setState({
+        period: this.state.period.concat({
+          title: 'Period',
+          start: first,
+          end: last,
+          allDay: true,
+          backgroundColor: '#DB2828'
+        }),
+        pms: this.state.pms.concat({
+          title: 'PMS',
+          start: pmsStart,
+          end: pmsEnd,
+          allDay: true,
+          backgroundColor: '#FBBD08'
+        })
+      });
     }
   }
 }
@@ -106,4 +102,3 @@ export default withTracker(() => {
     ready: subscription.ready(),
   };
 })(UserHome);
-
