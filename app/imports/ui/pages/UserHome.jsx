@@ -13,14 +13,16 @@ import '@fullcalendar/daygrid/main.css';
 
 /** Renders a table containing all of the Stuff documents. Use <StuffItem> to render each row. */
 class UserHome extends React.Component {
-
+  calendarRef = React.createRef();
   constructor(props) {
     super(props);
-    this.calendarRef = React.createRef();
+    // this.calendarRef = React.createRef();
     this.handleDateClick = this.handleDateClick.bind(this);
     const duration = (this.props.profile == null) ? 5 : this.props.profile.duration;
+    const cycle = (this.props.profile == null) ? 28 : this.props.profile.cycle;
     this.state = {
       duration: duration,
+      cycle: cycle,
       period: [],
       pms: []
     };
@@ -41,7 +43,7 @@ class UserHome extends React.Component {
           <FullCalendar
               defaultView = "dayGridMonth"
               plugins={[ dayGridPlugin, interactionPlugin ]}
-              ref={this.calendarRef}
+              // ref={this.calendarRef}
               header = {{
                 left: 'prev,next today',
                 center: 'title',
@@ -61,26 +63,40 @@ class UserHome extends React.Component {
   }
 
   handleDateClick = (clicked) => {
-    const found = this.state.period.find(period => period.start == clicked.date);
-    console.log(found);
-    if (!found) {
-      let last = new Date(clicked.date.toDateString());
-      last.setDate(last.getDate() + this.state.duration);
-      this.setState({
-        period: this.state.period.concat({
-          title: 'period',
-          start: clicked.date,
-          end: last,
-          allDay: clicked.allDay,
-          backgroundColor: 'red'
-        })
-      })
-    } else {
-      found.remove();
-    }
+    // if clicked date is not already first date of period
+    if (!this.state.period.find(period => period.start.toDateString() === clicked.date.toDateString())) {
+      let first = clicked.date;
+      let last;
 
-    //this.state.period.push({title: 'period', start: clicked.date, end: last });
-    // console.log(this.state.period);
+      for (let i = 0; i < 2; i++) {   // only shows prediction for one month in advance
+        first = new Date();
+        first.setDate(clicked.date.getDate() + i * this.state.cycle);
+        last = new Date(first.toDateString());
+        last.setDate(first.getDate() + this.state.duration);
+        this.setState({   // add next predicted period to events array
+          period: this.state.period.concat({
+            groupId: first.toDateString(),
+            title: 'period',
+            start: first,
+            end: last,
+            allDay: true,
+            backgroundColor: 'red'
+          })
+        });
+
+        const today = new Date();
+        const periodNow = this.state.period.find(period => today.getTime() > period.start.getTime() &&
+            today.getTime() < period.end.getTime());
+        if (periodNow) {
+          console.log("Currently on period - turn bulb orange.");
+        }
+      }
+    } else {
+      // if clicked date is already first date of period, remove it and its prediction
+      this.state.period.pop();
+      this.state.period.pop();
+      this.setState({ period: this.state.period });
+    }
   }
 }
 
