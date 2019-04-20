@@ -85,8 +85,7 @@ class UserHome extends React.Component {
   }
 
   handleDateClick = (clicked) => {
-    // if clicked date is not already first date of period
-    if (!this.state.period.find(period => period.start.toDateString() === clicked.date.toDateString())) {
+      this.state.period = [];
       let first = clicked.date;
       let last;
 
@@ -113,12 +112,6 @@ class UserHome extends React.Component {
           console.log("Currently on period - turn bulb orange.");
         }
       }
-    } else {
-      // if clicked date is already first date of period, remove it and its prediction
-      this.state.period.pop();
-      this.state.period.pop();
-      this.setState({ period: this.state.period });
-    }
 
     let last = new Date(clicked.date.toDateString());
     last.setDate(last.getDate() + this.state.duration);
