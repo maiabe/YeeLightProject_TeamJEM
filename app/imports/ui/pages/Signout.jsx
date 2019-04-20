@@ -5,6 +5,11 @@ import { Header } from 'semantic-ui-react';
 /** After the user clicks the "Signout" link in the NavBar, log them out and display this page. */
 export default class Signout extends React.Component {
   render() {
+    Meteor.call('turnOffBulb', {}, (err) => {
+      if (err) {
+        alert(err);
+      }
+    });
     Meteor.logout();
     return (
       <Header as="h2" textAlign="center">

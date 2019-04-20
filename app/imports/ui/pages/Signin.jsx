@@ -97,7 +97,6 @@ export default class Signin extends React.Component {
                 <Form.Button color="red" content="Toggle"/>
               </Form>
 
-
               {this.state.error === '' ? (
                   ''
               ) : (
