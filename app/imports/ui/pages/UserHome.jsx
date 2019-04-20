@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Container, Loader, Button, Card, Label, Grid } from 'semantic-ui-react';
+import { Container, Loader, Button } from 'semantic-ui-react';
 import { Profiles } from '/imports/api/profile/profile';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
@@ -21,13 +21,13 @@ class UserHome extends React.Component {
     const duration = (this.props.profile == null) ? 5 : this.props.profile.duration;
     const cycle = (this.props.profile == null) ? 28 : this.props.profile.cycle;
     this.state = {
-      willSet: null,
       duration: duration,
       cycle: cycle,
       period: [],
       pms: []
     };
   }
+
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   render() {
@@ -46,39 +46,9 @@ class UserHome extends React.Component {
                 left: 'prev,next today',
                 center: 'title',
               }}
-              /*customButtons = {{
-                inputPeriod: {
-                  text: 'Period', click: function () {
-                  }
-                }
-              }}*/
-              events={[this.state.period, this.state.pms]}
-              dateClick={this.handleDateClick}
+              events = {this.state.period}
+              dateClick = { this.handleDateClick }
           />
-          <Card>
-            <Card.Content>
-              <Card.Header id='header'>Legend</Card.Header>
-              <Container>
-                <Label.Group size='mini'>
-                  <Grid>
-                    <Grid.Row>
-                      <Grid.Column>
-                        <Label circular color='red' horizontal></Label> Period
-                      </Grid.Column>
-                    </Grid.Row>
-
-                    <Grid.Row>
-                      <Grid.Column>
-                        <Label circular color='yellow' horizontal></Label> PMS
-                      </Grid.Column>
-                    </Grid.Row>
-
-                  </Grid>
-                </Label.Group>
-              </Container>
-            </Card.Content>
-          </Card>
-
         </Container>
 
     );
@@ -119,32 +89,6 @@ class UserHome extends React.Component {
       this.state.period.pop();
       this.setState({ period: this.state.period });
     }
-
-    let last = new Date(clicked.date.toDateString());
-    last.setDate(last.getDate() + this.state.duration);
-    let pmsStart = new Date(clicked.date.toDateString());
-    pmsStart.setDate(pmsStart.getDate() - 5);
-    let pmsEnd = new Date(clicked.date.toDateString());
-    pmsEnd.setDate(pmsEnd.getDate());
-    this.setState({
-      period: {
-        title: 'Period',
-        start: clicked.date,
-        end: last,
-        allDay: clicked.allDay,
-        backgroundColor: '#DB2828'
-      },
-      pms: {
-        title: 'PMS',
-        start: pmsStart,
-        end: pmsEnd,
-        allDay: clicked.allDay,
-        backgroundColor: '#FBBD08'
-      }
-    });
-
-    //this.state.period.push({title: 'period', start: clicked.date, end: last });
-    // console.log(this.state.period);
   }
 }
 
