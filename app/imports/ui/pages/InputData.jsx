@@ -52,7 +52,7 @@ class InputData extends React.Component {
                 <NumField name='cycle' label='Average cycle duration (days)' decimal={false}/>
                 <NumField name='period' label='Average period duration (days)' decimal={false}/>
                 <NumField name='pms' label='Average PMS duration (days)' decimal={false}/>
-                <SubmitField id='button' value='Submit'/>
+                <SubmitField id='editbutton' value='Submit'/>
                 <ErrorsField/>
                 <HiddenField name='owner' value='fakeuser@foo.com'/>
               </Segment>

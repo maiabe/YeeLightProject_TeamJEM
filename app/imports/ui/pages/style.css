@@ -63,10 +63,30 @@ footer {
 #button {
   background-color: red;
   color: white;
+  margin-left: 485px;
+  margin-top: 100px;
+  margin-bottom: 50px;
+}
+
+#editbutton {
+  background-color: red;
+  color: white;
 }
 
 #inputButton {
   background-color: red;
   color: white;
   margin-bottom: 20px;
+}
+
+#bulletpoint1 {
+  text-indent: 50px;
+}
+
+#bulletpoint2 {
+  text-indent: 50px;
+}
+
+#bulletpoint3 {
+  text-indent: 50px;
 }

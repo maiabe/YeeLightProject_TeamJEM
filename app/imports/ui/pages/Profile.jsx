@@ -22,7 +22,7 @@ class Profile extends React.Component {
               Average period duration: {this.props.profile.period} days<hr/>
               Average PMS duration: {this.props.profile.pms} days<hr/>
             </Segment>
-            <Button id='button' as={Link} to={`/edit/${this.props.profile._id}`}>Edit</Button>
+            <Button id='editbutton' as={Link} to={`/edit/${this.props.profile._id}`}>Edit</Button>
           </Container>
       );
     } else {
