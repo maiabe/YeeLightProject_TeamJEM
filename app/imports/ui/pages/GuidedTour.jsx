@@ -8,16 +8,11 @@ class GuidedTour extends React.Component {
     return (
         <Container>
               <h1>Guided Tour</h1>
-          </Grid>
-          <Tab menu={{ pointing: true }} panes={
-            [
-              { menuItem: 'Step 1', render: () => <Tab.Pane attached={false}>Connect your Yeelight bulb.</Tab.Pane> },
-              { menuItem: 'Step 2', render: () => <Tab.Pane attached={false}>Input your menstruation data on the data input page.</Tab.Pane> },
-              { menuItem: 'Step 3', render: () => <Tab.Pane attached={false}>The bulb will change color according to the current prediction. During your predicted PMS duration, the bulb will gradually increase in white color temperature. During your predicted bleeding duration, the bulb will gradually increase in orange color temperature.</Tab.Pane> },
-            ]
-          } />
+              <p>WWAT (Women's Wellness Assurance Tracker) is a web application designed using the Yeelight third-party control protocol feature.
+                <br/>
                   <a href="https://www.yeelight.com/home"> Yeelight Home Page </a>
               </p>
+              <p>
                 Below are the steps of how to use WWAT.
               </p>
               <Tab menu={{ pointing: true }} panes={
