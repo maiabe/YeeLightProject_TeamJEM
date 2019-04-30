@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Container, Loader, Card, Label, Grid } from 'semantic-ui-react';
+import { Container, Loader } from 'semantic-ui-react';
 import { Profiles } from '/imports/api/profile/profile';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
@@ -26,7 +26,8 @@ class UserHome extends React.Component {
       cycle: cycle,
       pms_duration: pms_duration,
       period: [],
-      pms: []
+      pms: [],
+      fertility: [],
     };
   }
 
@@ -42,14 +43,14 @@ class UserHome extends React.Component {
         <Container>
           <FullCalendar
               defaultView = "dayGridMonth"
-              plugins={[ dayGridPlugin, interactionPlugin ]}
+              plugins = {[dayGridPlugin, interactionPlugin]}
               // ref={this.calendarRef}
               header = {{
                 left: 'prev,next today',
                 center: 'title',
               }}
-              events = {this.state.period.concat(this.state.pms)}
-              dateClick = { this.handleDateClick }
+              events = {this.state.fertility.concat(this.state.period.concat(this.state.pms))}
+              dateClick = {this.handleDateClick}
           />
         </Container>
     );
@@ -58,7 +59,8 @@ class UserHome extends React.Component {
   handleDateClick = (clicked) => {
     this.state.period = [];
     this.state.pms = [];
-    let first, last, pmsStart, pmsEnd;
+    this.state.fertility = [];
+    let first, last, pmsStart, pmsEnd, fertilityStart, fertilityEnd;
 
     for (let i = 0; i < 12; i++) {
       first = new Date();
@@ -69,6 +71,11 @@ class UserHome extends React.Component {
       pmsStart = new Date(first.toDateString());
       pmsStart.setDate(pmsStart.getDate() - this.state.pms_duration);
       pmsEnd = new Date(first.toDateString());
+
+      fertilityStart = new Date(first.toDateString());
+      fertilityStart.setDate(first.getDate() - 14);
+      fertilityEnd = new Date(fertilityStart.toDateString());
+      fertilityEnd.setDate(fertilityStart.getDate() + 3);
 
       this.setState({
         period: this.state.period.concat({
@@ -84,7 +91,16 @@ class UserHome extends React.Component {
           end: pmsEnd,
           allDay: true,
           backgroundColor: '#FBBD08'
+        }),
+
+        fertility: this.state.fertility.concat({
+          title: 'Fertility',
+          start: fertilityStart,
+          end: fertilityEnd,
+          allDay: true,
+          backgroundColor: '#33D8FF'
         })
+
       });
     }
   }
