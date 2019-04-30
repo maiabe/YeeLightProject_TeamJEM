@@ -12,6 +12,8 @@ const ProfileSchema = new SimpleSchema({
   cycle: Number,
   period: Number,
   pms: Number,
+  period_array: [Object],
+  pms_array: [Object],
   owner: String,
 }, { tracker: Tracker });
 

@@ -37,35 +37,33 @@ class InputData extends React.Component {
 
   /** On submit, insert the data. */
   submit(data) {
-    const { name, birthday, cycle, period, pms } = data;
+    const { name, birthday, cycle, period, pms, period_array, pms_array } = data;
     const owner = Meteor.user().username;
-    Profiles.insert( { name, birthday, cycle, period, pms, owner }, this.insertCallback);
-    // Profiles.update(_id, { $set: { name, birthday, cycle, period, pms } }, (error) => (error ?
-    //     Bert.alert({ type: 'danger', message: `Update failed: ${error.message}` }) :
-    //     Bert.alert({ type: 'success', message: 'Update succeeded' })));
-    // this.browserHistory.push('/profile');
+    Profiles.insert( { name, birthday, cycle, period, pms, period_array, pms_array, owner }, this.insertCallback);
   }
 
   /** Render the form. Use Uniforms: https://github.com/vazco/uniforms */
   render() {
-    const { from } = this.props.location.state || { from: { pathname: '/profile' } };
-    // if correct authentication, redirect to page instead of login screen
-    if (this.formRef) {
-      return <Redirect to={from}/>;
-    }
+    // const { from } = this.props.location.state || { from: { pathname: '/profile' } };
+    // // if correct authentication, redirect to page instead of login screen
+    // if (this.formRef) {
+    //   return <Redirect to={from}/>;
+    // }
     return (
         <Grid container centered>
           <Grid.Column>
             <Header as="h2" textAlign="center">Input Data</Header>
             <AutoForm ref={(ref) => {this.formRef = ref;}} schema={ProfileSchema} onSubmit={this.submit}>
               <Segment>
-                <TextField name="name" label="Name"></TextField>
-                <TextField type="date" name="birthday" label="Birthday"></TextField>
+                <TextField name="name" label="Name"/>
+                <TextField type="date" name="birthday" label="Birthday"/>
                 <NumField name='cycle' label='Average cycle duration (days)' decimal={false}/>
                 <NumField name='period' label='Average period duration (days)' decimal={false}/>
                 <NumField name='pms' label='Average PMS duration (days)' decimal={false}/>
                 <SubmitField id='editbutton' value='Submit'/>
                 <ErrorsField/>
+                <HiddenField name='period_array' value={[]}/>
+                <HiddenField name='pms_array' value={[]}/>
                 <HiddenField name='owner' value='fakeuser@foo.com'/>
               </Segment>
             </AutoForm>
@@ -74,24 +72,5 @@ class InputData extends React.Component {
     );
   }
 }
-
-/** Require the presence of a Profile document in the props object. Uniforms adds 'model' to the props, which we use. */
-InputData.propTypes = {
-  doc: PropTypes.object,
-  model: PropTypes.object,
-  ready: PropTypes.bool.isRequired,
-};
-
-// /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
-// export default withTracker(({ match }) => {
-//   // Get the documentID from the URL field. See imports/ui/layouts/App.jsx for the route containing :_id.
-//   const documentId = match.params._id;
-//   // Get access to Stuff documents.
-//   const subscription = Meteor.subscribe('Profile');
-//   return {
-//     doc: Profiles.findOne(documentId),
-//     ready: subscription.ready(),
-//   };
-// })(InputData);
 
 export default InputData;

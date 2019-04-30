@@ -18,15 +18,33 @@ class UserHome extends React.Component {
     super(props);
     // this.calendarRef = React.createRef();
     this.handleDateClick = this.handleDateClick.bind(this);
-    const duration = (this.props.profile == null) ? 5 : this.props.profile.period;
-    const cycle = (this.props.profile == null) ? 30 : this.props.profile.cycle;
-    const pms_duration = (this.props.profile == null) ? 7 : this.props.profile.pms;
+    let period, cycle, pms, period_array, pms_array;
+
+    if (this.props.profile == null) {
+      cycle = 30;
+      period = 5;
+      pms = 7;
+      period_array = [];
+      pms_array = [];
+    } else {
+      cycle = this.props.profile.cycle;
+      period = this.props.profile.period;
+      pms = this.props.profile.pms;
+      if (this.props.profile.period_array == null) {
+        period_array = [];
+        pms_array = [];
+      } else {
+        period_array = this.props.profile.period_array;
+        pms_array = this.props.profile.pms_array;
+      }
+    }
+
     this.state = {
-      duration: duration,
       cycle: cycle,
-      pms_duration: pms_duration,
-      period: [],
-      pms: [],
+      period: period,
+      pms: pms,
+      period_array: period_array,
+      pms_array: pms_array,
       fertility: [],
     };
   }
@@ -49,7 +67,7 @@ class UserHome extends React.Component {
                 left: 'prev,next today',
                 center: 'title',
               }}
-              events = {this.state.fertility.concat(this.state.period.concat(this.state.pms))}
+              events = {this.state.fertility.concat(this.state.period_array.concat(this.state.pms_array))}
               dateClick = {this.handleDateClick}
           />
         </Container>
@@ -57,8 +75,8 @@ class UserHome extends React.Component {
   }
 
   handleDateClick = (clicked) => {
-    this.state.period = [];
-    this.state.pms = [];
+    this.state.period_array = [];
+    this.state.pms_array = [];
     this.state.fertility = [];
     let first, last, pmsStart, pmsEnd, fertilityStart, fertilityEnd;
 
@@ -66,10 +84,10 @@ class UserHome extends React.Component {
       first = new Date();
       first.setDate(clicked.date.getDate() + i * this.state.cycle);
       last = new Date(first.toDateString());
-      last.setDate(first.getDate() + this.state.duration);
+      last.setDate(first.getDate() + this.state.period);
 
       pmsStart = new Date(first.toDateString());
-      pmsStart.setDate(pmsStart.getDate() - this.state.pms_duration);
+      pmsStart.setDate(pmsStart.getDate() - this.state.pms);
       pmsEnd = new Date(first.toDateString());
 
       fertilityStart = new Date(first.toDateString());
@@ -78,31 +96,32 @@ class UserHome extends React.Component {
       fertilityEnd.setDate(fertilityStart.getDate() + 3);
 
       this.setState({
-        period: this.state.period.concat({
-          title: 'Period',
-          start: first,
-          end: last,
-          allDay: true,
-          backgroundColor: '#DB2828'
-        }),
-        pms: this.state.pms.concat({
-          title: 'PMS',
-          start: pmsStart,
-          end: pmsEnd,
-          allDay: true,
-          backgroundColor: '#FBBD08'
-        }),
-
         fertility: this.state.fertility.concat({
           title: 'Fertility',
           start: fertilityStart,
           end: fertilityEnd,
           allDay: true,
           backgroundColor: '#33D8FF'
-        })
-
+        }),
+        period_array: this.state.period_array.concat({
+          title: 'Period',
+          start: first,
+          end: last,
+          allDay: true,
+          backgroundColor: '#DB2828'
+        }),
+        pms_array: this.state.pms_array.concat({
+          title: 'PMS',
+          start: pmsStart,
+          end: pmsEnd,
+          allDay: true,
+          backgroundColor: '#FBBD08'
+        }),
       });
     }
+
+    this.props.profile.period_array = this.state.period_array;
+    this.props.profile.pms_array = this.state.pms_array;
   }
 }
 
