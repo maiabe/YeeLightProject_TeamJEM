@@ -51,7 +51,7 @@ class GuidedTour extends React.Component {
                       <p> ＊ When the current date falls on the predicted dates, the bulb will change to the following colors accordingly: <br/></p>
                           <p>
                               <li id='bulletpoint1'> PMS = White </li>
-                              <li id='bulletpoint2'> Period = Orange </li>
+                              <li id='bulletpoint2'> Period = Yellow </li>
                               <li id='bulletpoint3'> Fertility = Blue </li>
                           </p>
                   </Tab.Pane> },
