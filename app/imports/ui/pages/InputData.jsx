@@ -7,8 +7,11 @@ import NumField from 'uniforms-semantic/NumField';
 import SubmitField from 'uniforms-semantic/SubmitField';
 import HiddenField from 'uniforms-semantic/HiddenField';
 import ErrorsField from 'uniforms-semantic/ErrorsField';
+import { withTracker } from 'meteor/react-meteor-data';
+import PropTypes from 'prop-types';
 import { Bert } from 'meteor/themeteorchef:bert';
 import { Meteor } from 'meteor/meteor';
+import { Redirect } from 'react-router-dom';
 
 /** Renders the Page for adding a document. */
 class InputData extends React.Component {
@@ -18,7 +21,7 @@ class InputData extends React.Component {
     super(props);
     this.submit = this.submit.bind(this);
     this.insertCallback = this.insertCallback.bind(this);
-    this.formRef = null;
+    this.formRef = false;
   }
 
   /** Notify the user of the results of the submit. If successful, clear the form. */
@@ -28,6 +31,7 @@ class InputData extends React.Component {
     } else {
       Bert.alert({ type: 'success', message: 'Add succeeded' });
       this.formRef.reset();
+      this.setState({ error: '', formRef: true });
     }
   }
 
@@ -35,12 +39,20 @@ class InputData extends React.Component {
   submit(data) {
     const { name, birthday, cycle, period, pms } = data;
     const owner = Meteor.user().username;
-    Profiles.insert({ name, birthday, cycle, period, pms, owner }, this.insertCallback);
+    Profiles.insert( { name, birthday, cycle, period, pms, owner }, this.insertCallback);
+    // Profiles.update(_id, { $set: { name, birthday, cycle, period, pms } }, (error) => (error ?
+    //     Bert.alert({ type: 'danger', message: `Update failed: ${error.message}` }) :
+    //     Bert.alert({ type: 'success', message: 'Update succeeded' })));
     // this.browserHistory.push('/profile');
   }
 
   /** Render the form. Use Uniforms: https://github.com/vazco/uniforms */
   render() {
+    const { from } = this.props.location.state || { from: { pathname: '/profile' } };
+    // if correct authentication, redirect to page instead of login screen
+    if (this.formRef) {
+      return <Redirect to={from}/>;
+    }
     return (
         <Grid container centered>
           <Grid.Column>
@@ -62,5 +74,24 @@ class InputData extends React.Component {
     );
   }
 }
+
+/** Require the presence of a Profile document in the props object. Uniforms adds 'model' to the props, which we use. */
+InputData.propTypes = {
+  doc: PropTypes.object,
+  model: PropTypes.object,
+  ready: PropTypes.bool.isRequired,
+};
+
+// /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
+// export default withTracker(({ match }) => {
+//   // Get the documentID from the URL field. See imports/ui/layouts/App.jsx for the route containing :_id.
+//   const documentId = match.params._id;
+//   // Get access to Stuff documents.
+//   const subscription = Meteor.subscribe('Profile');
+//   return {
+//     doc: Profiles.findOne(documentId),
+//     ready: subscription.ready(),
+//   };
+// })(InputData);
 
 export default InputData;

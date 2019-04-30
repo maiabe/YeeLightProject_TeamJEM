@@ -11,16 +11,33 @@ import ErrorsField from 'uniforms-semantic/ErrorsField';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 
 /** Renders the Page for editing a single document. */
 class EditProfile extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.submit = this.submit.bind(this);
+    this.insertCallback = this.insertCallback.bind(this);
+    this.formRef = false;
+  }
+
+  /** Notify the user of the results of the submit. If successful, clear the form. */
+  insertCallback(error) {
+    if (error) {
+      Bert.alert({ type: 'danger', message: `Add failed: ${error.message}` });
+    } else {
+      Bert.alert({ type: 'success', message: 'Add succeeded' });
+      // this.formRef.reset();
+      this.setState({ error: '', formRef: true });
+    }
+  }
+
   /** On successful submit, insert the data. */
   submit(data) {
     const { name, birthday, cycle, period, pms, _id } = data;
-    Profiles.update(_id, { $set: { name, birthday, cycle, period, pms } }, (error) => (error ?
-        Bert.alert({ type: 'danger', message: `Update failed: ${error.message}` }) :
-        Bert.alert({ type: 'success', message: 'Update succeeded' })));
+    Profiles.update(_id, { $set: { name, birthday, cycle, period, pms } }, this.insertCallback());
   }
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
@@ -30,6 +47,11 @@ class EditProfile extends React.Component {
 
   /** Render the form. Use Uniforms: https://github.com/vazco/uniforms */
   renderPage() {
+    const { from } = this.props.location.state || { from: { pathname: '/profile' } };
+    // if correct authentication, redirect to page instead of login screen
+    if (this.formRef) {
+      return <Redirect to={from}/>;
+    }
     return (
         <Grid container centered>
           <Grid.Column>
