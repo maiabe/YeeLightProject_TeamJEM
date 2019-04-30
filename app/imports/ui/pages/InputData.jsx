@@ -42,11 +42,11 @@ class InputData extends React.Component {
 
   /** Render the form. Use Uniforms: https://github.com/vazco/uniforms */
   render() {
-    // const { from } = this.props.location.state || { from: { pathname: '/profile' } };
-    // // if correct authentication, redirect to page instead of login screen
-    // if (this.formRef) {
-    //   return <Redirect to={from}/>;
-    // }
+    const { from } = this.props.location.state || { from: { pathname: '/profile' } };
+    // if correct authentication, redirect to page instead of login screen
+    if (this.formRef) {
+      return <Redirect to={from}/>;
+    }
     return (
         <Grid container centered>
           <Grid.Column>
