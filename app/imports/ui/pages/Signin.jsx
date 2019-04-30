@@ -93,10 +93,6 @@ export default class Signin extends React.Component {
                 <Link to="/signup">Click here to Register</Link>
               </Message>
 
-              <Form onSubmit={this.toggleButton}>
-                <Form.Button color="red" content="Toggle"/>
-              </Form>
-
               {this.state.error === '' ? (
                   ''
               ) : (
