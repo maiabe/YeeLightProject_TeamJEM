@@ -8,10 +8,8 @@ import SubmitField from 'uniforms-semantic/SubmitField';
 import HiddenField from 'uniforms-semantic/HiddenField';
 import ErrorsField from 'uniforms-semantic/ErrorsField';
 import { withTracker } from 'meteor/react-meteor-data';
-import PropTypes from 'prop-types';
 import { Bert } from 'meteor/themeteorchef:bert';
 import { Meteor } from 'meteor/meteor';
-import { Redirect } from 'react-router-dom';
 
 /** Renders the Page for adding a document. */
 class InputData extends React.Component {
@@ -37,9 +35,9 @@ class InputData extends React.Component {
 
   /** On submit, insert the data. */
   submit(data) {
-    const { name, birthday, cycle, period, pms, period_array, pms_array } = data;
+    const { name, birthday, cycle, period, pms } = data;
     const owner = Meteor.user().username;
-    Profiles.insert( { name, birthday, cycle, period, pms, period_array, pms_array, owner }, this.insertCallback);
+    Profiles.insert( { name, birthday, cycle, period, pms, owner }, this.insertCallback);
   }
 
   /** Render the form. Use Uniforms: https://github.com/vazco/uniforms */
@@ -62,8 +60,6 @@ class InputData extends React.Component {
                 <NumField name='pms' label='Average PMS duration (days)' decimal={false}/>
                 <SubmitField id='editbutton' value='Submit'/>
                 <ErrorsField/>
-                <HiddenField name='period_array' value={[]}/>
-                <HiddenField name='pms_array' value={[]}/>
                 <HiddenField name='owner' value='fakeuser@foo.com'/>
               </Segment>
             </AutoForm>
