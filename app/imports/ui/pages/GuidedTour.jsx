@@ -18,12 +18,12 @@ class GuidedTour extends React.Component {
               <Tab menu={{ pointing: true }} panes={
                 [
                   { menuItem: 'Step 1', render: () => <Tab.Pane attached={false}>
-                      <p>[ Connect your Yeelight bulb ]</p>
+                      <p className='title'>[ Connect your Yeelight bulb ]</p>
                       <p>＊ Follow the instructions on the Yeelight app to connect the bulb to your phone</p>
                       <p>＊ Turn on the LAN control mode to use WWAT</p>
                     </Tab.Pane> },
                   { menuItem: 'Step 2', render: () => <Tab.Pane attached={false}>
-                      <p> [ Input your menstruation data ] </p>
+                      <p className='title'> [ Input your menstruation data ] </p>
                       <p> ＊ Login to your account or Sign up if you don't have an account with us yet </p>
                       <Image src='./images/login.PNG' size='large' className='shadow' rounded/>
                       <Divider />
@@ -41,7 +41,7 @@ class GuidedTour extends React.Component {
                       <Image src='./images/profile3.PNG' size='big' className='shadow' rounded/>
                   </Tab.Pane> },
                   { menuItem: 'Step 3', render: () => <Tab.Pane attached={false}>
-                      <p> [ See Predictions on User Home Page ] </p>
+                      <p className='title'> [ See Predictions on User Home Page ] </p>
                       <p> ＊ Click on the 'Home' tab on the menu bar to see your menstruation prediction calendar </p>
                       <Image src='./images/home.PNG' size='big' className='shadow' rounded />
                       <Divider />
