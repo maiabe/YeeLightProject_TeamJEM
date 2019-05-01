@@ -21,6 +21,9 @@ class Profile extends React.Component {
               Average cycle duration: {this.props.profile.cycle} days<hr/>
               Average period duration: {this.props.profile.period} days<hr/>
               Average PMS duration: {this.props.profile.pms} days<hr/>
+              <Icon name="sync alternate"/>Average cycle duration: {this.props.profile.cycle} days<hr/>
+              <Icon name="tint"/>Average period duration: {this.props.profile.period} days<hr/>
+              <Icon name="bolt"/>Average PMS duration: {this.props.profile.pms} days<hr/>
             </Segment>
             <Button id='editbutton' as={Link} to={`/edit/${this.props.profile._id}`}>Edit</Button>
           </Container>
