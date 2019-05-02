@@ -20,7 +20,7 @@ class EditProfile extends React.Component {
     super(props);
     this.submit = this.submit.bind(this);
     this.insertCallback = this.insertCallback.bind(this);
-    this.formRef = false;
+    this.state = { error: '', redirectToReferer: false };
   }
 
   /** Notify the user of the results of the submit. If successful, clear the form. */
@@ -30,7 +30,8 @@ class EditProfile extends React.Component {
     } else {
       Bert.alert({ type: 'success', message: 'Add succeeded' });
       // this.formRef.reset();
-      this.setState({ error: '', formRef: true });
+      // this.setState({ error: '', formRef: true });
+      this.setState({ error: '', redirectToReferer: true });
     }
   }
 
@@ -49,7 +50,7 @@ class EditProfile extends React.Component {
   renderPage() {
     const { from } = this.props.location.state || { from: { pathname: '/profile' } };
     // if correct authentication, redirect to page instead of login screen
-    if (this.formRef) {
+    if (this.state.redirectToReferer) {
       return <Redirect to={from}/>;
     }
     return (

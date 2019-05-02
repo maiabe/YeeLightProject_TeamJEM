@@ -44,7 +44,7 @@ export default class Signup extends React.Component {
 
   /** Display the signup form. */
   render() {
-    const { from } = { from: { pathname: '/profile' } };
+    const { from } = { from: { pathname: '/' } };
     // if correct authentication, redirect to page instead of login screen
     if (this.state.redirectToReferer) {
       return <Redirect to={ from }/>;

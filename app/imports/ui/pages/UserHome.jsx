@@ -58,6 +58,8 @@ class UserHome extends React.Component {
   renderPage() {
     return (
         <Container>
+          <h2>＊ Please click on the last date you had your period.<br/>
+              ＊ Please reclick on the last date of period if you creat/edit your profile<br/><br/><br/></h2>
           <FullCalendar
               defaultView = "dayGridMonth"
               plugins = {[dayGridPlugin, interactionPlugin]}
