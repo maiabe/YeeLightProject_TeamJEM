@@ -74,14 +74,16 @@ class UserHome extends React.Component {
     );
   }
 
+
+
   handleDateClick = (clicked) => {
     this.state.period_array = [];
     this.state.pms_array = [];
     this.state.fertility_array = [];
-    let first, last, pmsStart, pmsEnd, fertilityStart, fertilityEnd, today;
+    let first, last, pmsStart, pmsEnd, fertilityStart, fertilityEnd, date;
 
     for (let i = 0; i < 12; i++) {
-      first = new Date();
+      first = new Date(clicked.date.toDateString());
       first.setDate(clicked.date.getDate() + i * this.state.cycle);
       last = new Date(first.toDateString());
       last.setDate(first.getDate() + this.state.period);
@@ -123,6 +125,40 @@ class UserHome extends React.Component {
     Profiles.update(this.props.profile._id, { $set: {period_array: this.state.period_array} });
     Profiles.update(this.props.profile._id, { $set: {pms_array: this.state.pms_array} });
     Profiles.update(this.props.profile._id, { $set: {fertility_array: this.state.fertility_array} });
+
+
+    date = new Date();
+    const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
+    ];
+    const currMon = monthNames[date.getMonth()].toString();
+    const currDay = parseInt(date.getDate().toString(), 10);
+    const currYear = date.getFullYear().toString();
+
+    const currPeriod = Profiles.findOne({ owner: Meteor.user().username });
+    if (typeof currPeriod !== 'undefined') {
+      for (let i = 0; i < 12; i++) {
+        if (currPeriod.period_array[i].start.toDateString().substr(11, 4).toString() === currYear) {
+          if (currPeriod.period_array[i].start.toDateString().substr(4, 3).toString() === currMon) {
+            const tempStart = currPeriod.period_array[i].start.toDateString().substr(8, 2).toString();
+            const tempEnd = currPeriod.period_array[i].end.toDateString().substr(8, 2).toString();
+            const startDay = parseInt(tempStart, 10);
+            const endDay = parseInt(tempEnd, 10);
+            for (let j = startDay; j <= endDay; j++) {
+              if (j === currDay) {
+                console.log("Period");
+                console.log(currDay);
+                console.log(j);
+              }
+            }
+          }
+        }
+      }
+    }
+
+
+
+
   }
 }
 
