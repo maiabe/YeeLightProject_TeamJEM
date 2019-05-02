@@ -10,6 +10,7 @@ import ErrorsField from 'uniforms-semantic/ErrorsField';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Bert } from 'meteor/themeteorchef:bert';
 import { Meteor } from 'meteor/meteor';
+import { Redirect } from 'react-router-dom';
 
 /** Renders the Page for adding a document. */
 class InputData extends React.Component {
@@ -37,7 +38,11 @@ class InputData extends React.Component {
   submit(data) {
     const { name, birthday, cycle, period, pms } = data;
     const owner = Meteor.user().username;
-    Profiles.insert( { name, birthday, cycle, period, pms, owner }, this.insertCallback);
+    const period_array = [];
+    const pms_array = [];
+    const fertility_array = [];
+    Profiles.insert( { name, birthday, cycle, period, pms, period_array, pms_array, fertility_array, owner },
+        this.insertCallback);
   }
 
   /** Render the form. Use Uniforms: https://github.com/vazco/uniforms */

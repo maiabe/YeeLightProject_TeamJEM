@@ -17,10 +17,7 @@ class Profile extends React.Component {
             <Header as="h2" textAlign="center">Your Profile</Header>
             <Segment>
               Name: {this.props.profile.name}<hr/>
-              <Icon name="birthday cake"/>Birthday: {this.props.profile.birthday.toUTCString().substr(0, 16)}<hr/>
-              Average cycle duration: {this.props.profile.cycle} days<hr/>
-              Average period duration: {this.props.profile.period} days<hr/>
-              Average PMS duration: {this.props.profile.pms} days<hr/>
+              <Icon name="birthday cake"/>Birthday: {this.props.profile.birthday.toDateString()}<hr/>
               <Icon name="sync alternate"/>Average cycle duration: {this.props.profile.cycle} days<hr/>
               <Icon name="tint"/>Average period duration: {this.props.profile.period} days<hr/>
               <Icon name="bolt"/>Average PMS duration: {this.props.profile.pms} days<hr/>

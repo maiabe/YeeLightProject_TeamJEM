@@ -11,14 +11,11 @@ import interactionPlugin from '@fullcalendar/interaction'
 import '@fullcalendar/core/main.css';
 import '@fullcalendar/daygrid/main.css';
 
-/** Renders a table containing all of the Stuff documents. Use <StuffItem> to render each row. */
 class UserHome extends React.Component {
-  calendarRef = React.createRef();
   constructor(props) {
     super(props);
-    // this.calendarRef = React.createRef();
     this.handleDateClick = this.handleDateClick.bind(this);
-    let period, cycle, pms, period_array, pms_array;
+    let period, cycle, pms, period_array, pms_array, fertility_array;
 
     if (this.props.profile == null) {
       cycle = 30;
@@ -26,6 +23,7 @@ class UserHome extends React.Component {
       pms = 7;
       period_array = [];
       pms_array = [];
+      fertility_array = [];
     } else {
       cycle = this.props.profile.cycle;
       period = this.props.profile.period;
@@ -33,9 +31,11 @@ class UserHome extends React.Component {
       if (this.props.profile.period_array == null) {
         period_array = [];
         pms_array = [];
+        fertility_array = [];
       } else {
         period_array = this.props.profile.period_array;
         pms_array = this.props.profile.pms_array;
+        fertility_array = this.props.profile.fertility_array;
       }
     }
 
@@ -45,10 +45,9 @@ class UserHome extends React.Component {
       pms: pms,
       period_array: period_array,
       pms_array: pms_array,
-      fertility: [],
+      fertility_array: fertility_array,
     };
   }
-
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   render() {
@@ -62,12 +61,11 @@ class UserHome extends React.Component {
           <FullCalendar
               defaultView = "dayGridMonth"
               plugins = {[dayGridPlugin, interactionPlugin]}
-              // ref={this.calendarRef}
               header = {{
                 left: 'prev,next today',
                 center: 'title',
               }}
-              events = {this.state.fertility.concat(this.state.period_array.concat(this.state.pms_array))}
+              events = {this.state.fertility_array.concat(this.state.period_array.concat(this.state.pms_array))}
               dateClick = {this.handleDateClick}
           />
         </Container>
@@ -77,7 +75,7 @@ class UserHome extends React.Component {
   handleDateClick = (clicked) => {
     this.state.period_array = [];
     this.state.pms_array = [];
-    this.state.fertility = [];
+    this.state.fertility_array = [];
     let first, last, pmsStart, pmsEnd, fertilityStart, fertilityEnd;
 
     for (let i = 0; i < 12; i++) {
@@ -96,7 +94,7 @@ class UserHome extends React.Component {
       fertilityEnd.setDate(fertilityStart.getDate() + 3);
 
       this.setState({
-        fertility: this.state.fertility.concat({
+        fertility_array: this.state.fertility_array.concat({
           title: 'Fertility',
           start: fertilityStart,
           end: fertilityEnd,
@@ -118,10 +116,11 @@ class UserHome extends React.Component {
           backgroundColor: '#FBBD08'
         }),
       });
-    }
 
-    this.props.profile.period_array = this.state.period_array;
-    this.props.profile.pms_array = this.state.pms_array;
+    }
+    Profiles.update(this.props.profile._id, { $set: {period_array: this.state.period_array} });
+    Profiles.update(this.props.profile._id, { $set: {pms_array: this.state.pms_array} });
+    Profiles.update(this.props.profile._id, { $set: {fertility_array: this.state.fertility_array} });
   }
 }
 
@@ -132,7 +131,7 @@ UserHome.propTypes = {
 
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 export default withTracker(() => {
-  // Get access to Stuff documents.
+  // Get access to Profile documents.
   const subscription = Meteor.subscribe('Profile');
   return {
     profile: Profiles.findOne({}),
