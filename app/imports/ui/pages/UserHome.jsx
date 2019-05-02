@@ -160,7 +160,21 @@ class UserHome extends React.Component {
                 console.log(j);
               }
             }
-            
+            const pmsStartDay = startDay - this.state.pms;
+            const pmsEndDay = startDay - 1;
+            // change the bulb color for period
+            for (let j = pmsStartDay; j <= pmsEndDay; j++) {            // j = duration for period predictions
+              if (j === currDay) {
+                Meteor.call('pmsNotify', {}, (err) => {
+                  if (err) {
+                    alert(err);
+                  }
+                });
+                console.log("PMS");
+                console.log(currDay);
+                console.log(j);
+              }
+            }
           }
         }
       }
