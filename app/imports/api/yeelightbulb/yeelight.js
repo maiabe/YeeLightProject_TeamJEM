@@ -261,7 +261,7 @@ Meteor.methods({
       });
 
       bulb.on("connected", () => {
-        let lightPower = bulb.setCtAbx(2700);
+        let lightPower = bulb.setCtAbx(3967);
         lightPower.then(function (value) {
           console.log("1++++++++++++++++++++++++++++++++++Light on! ", value);
         });
@@ -309,7 +309,7 @@ Meteor.methods({
       });
 
       bulb.on("connected", () => {
-        let lightPower = bulb.setCtAbx(4000);
+        let lightPower = bulb.setCtAbx(6500);
         lightPower.then(function (value) {
           console.log("1++++++++++++++++++++++++++++++++++Light on! ", value);
         });
@@ -356,7 +356,7 @@ Meteor.methods({
       });
 
       bulb.on("connected", () => {
-        let lightPower = bulb.setCtAbx(6500);
+        let lightPower = bulb.setCtAbx(5234);
         lightPower.then(function (value) {
           console.log("1++++++++++++++++++++++++++++++++++Light on! ", value);
         });
@@ -404,7 +404,7 @@ Meteor.methods({
       });
 
       bulb.on("connected", () => {
-        let lightPower = bulb.setCtAbx(3000);
+        let lightPower = bulb.setCtAbx(2700);
         lightPower.then(function (value) {
           console.log("1++++++++++++++++++++++++++++++++++Light on! ", value);
         });

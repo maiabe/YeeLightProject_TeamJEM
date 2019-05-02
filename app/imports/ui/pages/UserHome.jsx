@@ -204,9 +204,8 @@ class UserHome extends React.Component {
 
     }
   }
-
-
 }
+
 
 /** Require an array of Profile documents in the props. */
 UserHome.propTypes = {
