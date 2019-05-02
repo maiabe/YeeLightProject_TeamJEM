@@ -140,14 +140,14 @@ class UserHome extends React.Component {
     console.log(pmsArray);
     if (typeof currPrediction !== 'undefined') {
       for (let i = 0; i < 12; i++) {
-        // Period predictions
         if (currPrediction.period_array[i].start.toDateString().substr(11, 4).toString() === currYear) {
           if (currPrediction.period_array[i].start.toDateString().substr(4, 3).toString() === currMon) {
             const tempStart = currPrediction.period_array[i].start.toDateString().substr(8, 2).toString();
             const tempEnd = currPrediction.period_array[i].end.toDateString().substr(8, 2).toString();
             const startDay = parseInt(tempStart, 10);
             const endDay = parseInt(tempEnd, 10);
-            // change the bulb color for period
+
+            // Change the bulb color for period
             for (let j = startDay; j <= endDay; j++) {            // j = duration for period predictions
               if (j === currDay) {
                 Meteor.call('periodNotify', {}, (err) => {
@@ -160,10 +160,11 @@ class UserHome extends React.Component {
                 console.log(j);
               }
             }
+
+            // Change the bulb color for pms
             const pmsStartDay = startDay - this.state.pms;
             const pmsEndDay = startDay - 1;
-            // change the bulb color for period
-            for (let j = pmsStartDay; j <= pmsEndDay; j++) {            // j = duration for period predictions
+            for (let j = pmsStartDay; j <= pmsEndDay; j++) {            // j = duration for pms predictions
               if (j === currDay) {
                 Meteor.call('pmsNotify', {}, (err) => {
                   if (err) {
@@ -175,14 +176,29 @@ class UserHome extends React.Component {
                 console.log(j);
               }
             }
+
+            // Change the bulb color for fertility
+            const fertStartDay = startDay - 14;
+            const fertEndDay = fertStartDay + 2;
+            for (let j = fertStartDay; j <= fertEndDay; j++) {            // j = duration for fertility predictions
+              if (j === currDay) {
+                Meteor.call('fertilityNotify', {}, (err) => {
+                  if (err) {
+                    alert(err);
+                  }
+                });
+                console.log("Fertility");
+                console.log(currDay);
+                console.log(j);
+              }
+            }
           }
         }
       }
-
-
     }
-
   }
+
+
 }
 
 /** Require an array of Profile documents in the props. */

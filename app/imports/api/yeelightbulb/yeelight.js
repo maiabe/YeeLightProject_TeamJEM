@@ -309,7 +309,7 @@ Meteor.methods({
       });
 
       bulb.on("connected", () => {
-        let lightPower = bulb.setCtAbx(4500);
+        let lightPower = bulb.setCtAbx(4000);
         lightPower.then(function (value) {
           console.log("1++++++++++++++++++++++++++++++++++Light on! ", value);
         });
@@ -404,7 +404,7 @@ Meteor.methods({
       });
 
       bulb.on("connected", () => {
-        let lightPower = bulb.setCtAbx(6500);
+        let lightPower = bulb.setCtAbx(3000);
         lightPower.then(function (value) {
           console.log("1++++++++++++++++++++++++++++++++++Light on! ", value);
         });
