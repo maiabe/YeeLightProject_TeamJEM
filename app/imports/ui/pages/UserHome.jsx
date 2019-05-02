@@ -76,7 +76,7 @@ class UserHome extends React.Component {
     this.state.period_array = [];
     this.state.pms_array = [];
     this.state.fertility_array = [];
-    let first, last, pmsStart, pmsEnd, fertilityStart, fertilityEnd;
+    let first, last, pmsStart, pmsEnd, fertilityStart, fertilityEnd, today;
 
     for (let i = 0; i < 12; i++) {
       first = new Date();
