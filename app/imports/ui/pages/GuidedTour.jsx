@@ -48,11 +48,12 @@ class GuidedTour extends React.Component {
                       <p> ＊ On the calendar, click on the date you last had your period. <br/>
                         (If no data is provided for the Profile, default average prediction dates are going to show on the calendar.) </p>
                       <Image src='./images/predictions.PNG' size='big' className='shadow' rounded />
-                      <p> ＊ When the current date falls on the predicted dates, the bulb will change to the following colors accordingly: <br/></p>
+                      <p> ＊ When the current date falls on one the predicted dates, the light bulb will change to the following temperature colors accordingly: <br/></p>
                           <p>
-                              <li id='bulletpoint1'> PMS = Yellow </li>
-                              <li id='bulletpoint2'> Period = Red </li>
-                              <li id='bulletpoint3'> Fertility = Blue </li>
+                            <li id='bulletpoint'> Non-prediction days = Orange, Warmest temperature color (CT = 2700) </li>
+                            <li id='bulletpoint'> Fertility Prediction days = White, Cold temperature color (CT = 5234) </li>
+                            <li id='bulletpoint'> PMS Prediction days = Blue, Coldest temperature color (CT = 6500)</li>
+                            <li id='bulletpoint'> Period Prediction days = Red, Warm temperature color (CT = 3967) </li>
                           </p>
                   </Tab.Pane> },
                 ]
