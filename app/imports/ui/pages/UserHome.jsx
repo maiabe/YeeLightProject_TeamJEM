@@ -136,8 +136,8 @@ class UserHome extends React.Component {
     const currYear = date.getFullYear().toString();
 
     const currPrediction = Profiles.findOne({ owner: Meteor.user().username });
-    const pmsArray = currPrediction.pms_array;
-    console.log(pmsArray);
+    let normal = true;
+
     if (typeof currPrediction !== 'undefined') {
       for (let i = 0; i < 12; i++) {
         if (currPrediction.period_array[i].start.toDateString().substr(11, 4).toString() === currYear) {
@@ -156,8 +156,7 @@ class UserHome extends React.Component {
                   }
                 });
                 console.log("Period");
-                console.log(currDay);
-                console.log(j);
+                normal = false;
               }
             }
 
@@ -172,8 +171,7 @@ class UserHome extends React.Component {
                   }
                 });
                 console.log("PMS");
-                console.log(currDay);
-                console.log(j);
+                normal = false;
               }
             }
 
@@ -188,13 +186,22 @@ class UserHome extends React.Component {
                   }
                 });
                 console.log("Fertility");
-                console.log(currDay);
-                console.log(j);
+                normal = false;
               }
             }
           }
         }
+
       }
+      if (normal) {
+        Meteor.call('normalCT', {}, (err) => {
+          if (err) {
+            alert(err);
+          }
+        });
+        console.log("Normal");
+      }
+
     }
   }
 
