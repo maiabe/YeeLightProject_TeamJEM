@@ -50,10 +50,10 @@ class GuidedTour extends React.Component {
                       <Image src='./images/predictions.PNG' size='big' className='shadow' rounded />
                       <p> ＊ When the current date falls on one the predicted dates, the light bulb will change to the following temperature colors accordingly: <br/></p>
                           <p>
-                            <li id='bulletpoint'> Non-prediction days = Orange, Warmest temperature color (CT = 2700) </li>
+                            <li id='bulletpoint'> Non-prediction days = Orange, Warmest temperature color (CT = 3967) </li>
                             <li id='bulletpoint'> Fertility Prediction days = White, Cold temperature color (CT = 5234) </li>
                             <li id='bulletpoint'> PMS Prediction days = Blue, Coldest temperature color (CT = 6500)</li>
-                            <li id='bulletpoint'> Period Prediction days = Red, Warm temperature color (CT = 3967) </li>
+                            <li id='bulletpoint'> Period Prediction days = Red, Warm temperature color (CT = 2700) </li>
                           </p>
                   </Tab.Pane> },
                 ]

@@ -42,14 +42,6 @@ export default class Signin extends React.Component {
     });
   }
 
-  toggleButton() {
-    console.log("HELP!");
-    Meteor.call('toggleBulb', {}, (err) => {
-      if (err) {
-        alert(err);
-      }
-    })
-  }
 
   /** Render the signin form. */
   render() {

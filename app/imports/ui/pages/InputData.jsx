@@ -20,7 +20,7 @@ class InputData extends React.Component {
     super(props);
     this.submit = this.submit.bind(this);
     this.insertCallback = this.insertCallback.bind(this);
-    this.formRef = false;
+    this.state = { error: '', formRef: false };
   }
 
   /** Notify the user of the results of the submit. If successful, clear the form. */
@@ -29,7 +29,7 @@ class InputData extends React.Component {
       Bert.alert({ type: 'danger', message: `Add failed: ${error.message}` });
     } else {
       Bert.alert({ type: 'success', message: 'Add succeeded' });
-      this.formRef.reset();
+      // this.formRef.reset();
       this.setState({ error: '', formRef: true });
     }
   }

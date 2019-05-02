@@ -75,7 +75,6 @@ class UserHome extends React.Component {
   }
 
 
-
   handleDateClick = (clicked) => {
     this.state.period_array = [];
     this.state.pms_array = [];
