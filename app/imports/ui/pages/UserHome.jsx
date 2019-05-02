@@ -135,29 +135,38 @@ class UserHome extends React.Component {
     const currDay = parseInt(date.getDate().toString(), 10);
     const currYear = date.getFullYear().toString();
 
-    const currPeriod = Profiles.findOne({ owner: Meteor.user().username });
-    if (typeof currPeriod !== 'undefined') {
+    const currPrediction = Profiles.findOne({ owner: Meteor.user().username });
+    const pmsArray = currPrediction.pms_array;
+    console.log(pmsArray);
+    if (typeof currPrediction !== 'undefined') {
       for (let i = 0; i < 12; i++) {
-        if (currPeriod.period_array[i].start.toDateString().substr(11, 4).toString() === currYear) {
-          if (currPeriod.period_array[i].start.toDateString().substr(4, 3).toString() === currMon) {
-            const tempStart = currPeriod.period_array[i].start.toDateString().substr(8, 2).toString();
-            const tempEnd = currPeriod.period_array[i].end.toDateString().substr(8, 2).toString();
+        // Period predictions
+        if (currPrediction.period_array[i].start.toDateString().substr(11, 4).toString() === currYear) {
+          if (currPrediction.period_array[i].start.toDateString().substr(4, 3).toString() === currMon) {
+            const tempStart = currPrediction.period_array[i].start.toDateString().substr(8, 2).toString();
+            const tempEnd = currPrediction.period_array[i].end.toDateString().substr(8, 2).toString();
             const startDay = parseInt(tempStart, 10);
             const endDay = parseInt(tempEnd, 10);
-            for (let j = startDay; j <= endDay; j++) {
+            // change the bulb color for period
+            for (let j = startDay; j <= endDay; j++) {            // j = duration for period predictions
               if (j === currDay) {
+                Meteor.call('periodNotify', {}, (err) => {
+                  if (err) {
+                    alert(err);
+                  }
+                });
                 console.log("Period");
                 console.log(currDay);
                 console.log(j);
               }
             }
+            
           }
         }
       }
+
+
     }
-
-
-
 
   }
 }
